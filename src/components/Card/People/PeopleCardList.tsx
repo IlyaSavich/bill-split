@@ -13,7 +13,7 @@ export default class PeopleCardList extends CardList<IProps> {
             return this.props.ids === null ? true : this.props.ids.includes(cardItem.id);
         }).map(
             (cardItem: ICardItem) => {
-                const newCardItem: ICardItem = {...cardItem, price: this.props.splittedBill[cardItem.id]};
+                const newCardItem: ICardItem = { ...cardItem, price: this.props.splittedBill[cardItem.id] };
 
                 return <CardTextRow key={cardItem.id}
                                     cardItem={newCardItem}

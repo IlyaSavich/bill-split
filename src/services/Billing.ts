@@ -52,7 +52,7 @@ export default class Billing {
     }
 
     public addAssociation(itemId: number, peopleId: number): Record<number, number> {
-        this.associator.add({itemId, peopleId});
+        this.associator.add({ itemId, peopleId });
 
         return this.recalculate();
     }
@@ -75,7 +75,7 @@ export default class Billing {
         const priceForAll = _.sumBy(this.associator.filterItemsWithoutAssociation(this.items), 'price');
         const peopleItems = this.associator.getAssociationsGroupedByPeopleId();
         const preparedPeopleItems = peopleItems.map(
-            (itemIds: number[]) => itemIds.map((itemId: number) => this.items[itemId])
+            (itemIds: number[]) => itemIds.map((itemId: number) => this.items[itemId]),
         );
 
         for (const human of this.people) {

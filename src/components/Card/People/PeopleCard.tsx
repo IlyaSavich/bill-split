@@ -9,7 +9,7 @@ interface IProps extends BaseIProps {
 export default class PeopleCard extends Card<IProps> {
     public render() {
         return (
-            <div className="card" style={{width: "18rem"}} key={this.props.title}>
+            <div className="card" style={{ width: "18rem" }} key={this.props.title}>
                 <div className="card-header">
                     <span className="title">{this.props.title}</span>
                     <span className="btn-group btn-group-sm" role="group">

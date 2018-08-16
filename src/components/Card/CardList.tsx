@@ -31,7 +31,7 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
     protected cardItems: ICardItem[] = [];
 
     public componentWillReceiveProps(nextProps: IProps): void {
-        this.setState({...this.state, isCreating: nextProps.isCreating});
+        this.setState({ ...this.state, isCreating: nextProps.isCreating });
 
         if (nextProps.isClearing) {
             this.cardItems = [];
@@ -87,12 +87,12 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
     private onCreated = (cardItem: ICardItem) => {
         this.cardItems.push(cardItem);
 
-        this.setState({...this.state, isCreating: false});
+        this.setState({ ...this.state, isCreating: false });
         this.props.onCreated(cardItem);
     };
 
     private onCancelCreating = () => {
-        this.setState({...this.state, isCreating: false});
+        this.setState({ ...this.state, isCreating: false });
         this.props.onCancelCreating();
     };
 }

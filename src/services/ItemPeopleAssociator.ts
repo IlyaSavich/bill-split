@@ -26,7 +26,7 @@ export default class ItemPeopleAssociator {
 
     public getIdsFromAssociations(cardItem: ICardItem | null): ISelectedIds {
         if (!cardItem) {
-            return {itemIds: null, peopleIds: null};
+            return { itemIds: null, peopleIds: null };
         }
 
         const propertyAccessor = this.getAssociationPropertyAccessor(cardItem);
@@ -47,7 +47,7 @@ export default class ItemPeopleAssociator {
     public filterItemsWithoutAssociation(items: Record<number, IBillingItem>) {
         return _.filter(items, (item: IBillingItem) => {
             return _.find(
-                this.associations, (association: IItemPeopleAssociation) => association.itemId === item.id
+                this.associations, (association: IItemPeopleAssociation) => association.itemId === item.id,
             ) === undefined;
         });
     }
@@ -55,7 +55,7 @@ export default class ItemPeopleAssociator {
     public getAssociationsGroupedByPeopleId(): number[][] {
         return _.map(
             _.groupBy(this.associations, 'peopleId'),
-            (associations: IItemPeopleAssociation[]) => _.map(associations, _.property('itemId'))
+            (associations: IItemPeopleAssociation[]) => _.map(associations, _.property('itemId')),
         );
     }
 
@@ -67,7 +67,7 @@ export default class ItemPeopleAssociator {
         const associationKey = cardItem.cardTitle === 'Items' ? 'itemId' : 'peopleId';
 
         _.remove(
-            this.associations, (association: IItemPeopleAssociation) => association[associationKey] === cardItem.id
+            this.associations, (association: IItemPeopleAssociation) => association[associationKey] === cardItem.id,
         );
     }
 
