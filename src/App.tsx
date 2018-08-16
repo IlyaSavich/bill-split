@@ -1,7 +1,7 @@
 import * as React from 'react';
 import 'src/App.css';
-import PeopleCard from 'src/components/Card/People/PeopleCard';
 import Card from 'src/components/Card/Card';
+import PeopleCard from 'src/components/Card/People/PeopleCard';
 import {ICardItem} from 'src/models';
 import Billing from 'src/services/Billing';
 
@@ -42,13 +42,15 @@ class App extends React.Component<{}, IState> {
                             onAddingAssociation={this.onAddingAssociation}
                             onRemoveItem={this.onRemoveHuman}
                             onCreated={this.onAddHuman}
+                            splittedBill={this.state.splittedBill}
+                            title="People"
                 />
             </div>
         );
     }
 
     private onAddingAssociation = (itemId: number, peopleId: number) => {
-        const splittedBill: Record<number, number> = this.billing.addAssociation(itemId, peopleId);
+        const splittedBill = this.billing.addAssociation(itemId, peopleId);
 
         this.setState({...this.state, splittedBill});
     };
@@ -59,13 +61,13 @@ class App extends React.Component<{}, IState> {
     };
 
     private onRemoveItem = (cardItem: ICardItem) => {
-        const splittedBill: Record<number, number> = this.billing.removeItem(cardItem);
+        const splittedBill = this.billing.removeItem(cardItem);
 
         this.setState({...this.state, splittedBill});
     };
 
     private onRemoveHuman = (cardItem: ICardItem) => {
-        const splittedBill: Record<number, number> = this.billing.removeHuman(cardItem);
+        const splittedBill = this.billing.removeHuman(cardItem);
 
         this.setState({...this.state, splittedBill});
     };
@@ -78,13 +80,13 @@ class App extends React.Component<{}, IState> {
     };
 
     private onAddItem = (cardItem: ICardItem) => {
-        const splittedBill: Record<number, number> = this.billing.addItem({id: cardItem.id, price: cardItem.price});
+        const splittedBill = this.billing.addItem({id: cardItem.id, price: cardItem.price});
 
         this.setState({...this.state, splittedBill});
     };
 
     private onAddHuman = (cardItem: ICardItem) => {
-        const splittedBill: Record<number, number> = this.billing.addHuman({id: cardItem.id});
+        const splittedBill = this.billing.addHuman({id: cardItem.id, money: cardItem.price});
 
         this.setState({...this.state, splittedBill});
     };

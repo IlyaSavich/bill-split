@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Card, {IProps as BaseIProps} from 'src/components/Card/Card';
-import PeopleCardList from './PeopleCardList';
+import PeopleCardList from 'src/components/Card/People/PeopleCardList';
 
 interface IProps extends BaseIProps {
     splittedBill: Record<number, number>;
@@ -29,7 +29,7 @@ export default class PeopleCard extends Card<IProps> {
                         ids={this.props.ids}
                         splittedBill={this.props.splittedBill}
                         onCreated={this.onCreated}
-                        onRemoveItem={this.onRemoveItem}
+                        onRemoveItem={this.props.onRemoveItem}
                     />
                 </ul>
             </div>

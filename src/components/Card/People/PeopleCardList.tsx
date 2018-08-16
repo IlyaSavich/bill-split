@@ -1,7 +1,7 @@
 import * as React from 'react';
-import CardList, {IProps as BaseIProps} from '../CardList';
-import {ICardItem} from 'src/models';
+import CardList, {IProps as BaseIProps} from 'src/components/Card/CardList';
 import CardTextRow from 'src/components/Card/CardTextRow';
+import {ICardItem} from 'src/models';
 
 interface IProps extends BaseIProps {
     splittedBill: Record<number, number>;
@@ -18,7 +18,7 @@ export default class PeopleCardList extends CardList<IProps> {
                 return <CardTextRow key={cardItem.id}
                                     cardItem={newCardItem}
                                     onRemove={this.onRemoveRow}
-                                    onAddingAssociation={this.onAddingAssociation}
+                                    onAddingAssociation={this.props.onAddingAssociation}
                                     onSelectedCardItem={this.props.onSelectedCardItem}
                 />;
             },

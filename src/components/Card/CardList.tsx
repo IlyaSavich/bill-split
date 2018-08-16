@@ -3,7 +3,6 @@ import * as React from 'react';
 import CardFormRow from 'src/components/Card/CardFormRow';
 import CardTextRow from 'src/components/Card/CardTextRow';
 import {ICardItem} from 'src/models';
-import Billing from '../../services/Billing';
 
 export interface IProps {
     cardTitle: string;
@@ -30,13 +29,6 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
     };
 
     protected cardItems: ICardItem[] = [];
-    private billing: Billing;
-
-    constructor(props: any) {
-        super(props);
-
-        this.billing = new Billing();
-    }
 
     public componentWillReceiveProps(nextProps: IProps): void {
         this.setState({...this.state, isCreating: nextProps.isCreating});
@@ -66,11 +58,18 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
                 <CardTextRow key={cardItem.id}
                              cardItem={cardItem}
                              onRemove={this.onRemoveRow}
-                             onAddingAssociation={this.onAddingAssociation}
+                             onAddingAssociation={this.props.onAddingAssociation}
                              onSelectedCardItem={this.props.onSelectedCardItem}
                 />,
         )
     }
+
+    protected onRemoveRow = (removedCardItem: ICardItem) => {
+        _.remove(this.cardItems, (cardItem: ICardItem) => cardItem.id === removedCardItem.id);
+        this.props.onRemoveItem(removedCardItem);
+
+        this.forceUpdate();
+    };
 
     private appendCardFormRow(cardComponents: JSX.Element[]): JSX.Element[] {
         if (this.state.isCreating) {
@@ -95,18 +94,6 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
     private onCancelCreating = () => {
         this.setState({...this.state, isCreating: false});
         this.props.onCancelCreating();
-    };
-
-    protected onRemoveRow = (removedCardItem: ICardItem) => {
-        _.remove(this.cardItems, (cardItem: ICardItem) => cardItem.id === removedCardItem.id);
-        this.props.onRemoveItem(removedCardItem);
-        this.billing.removeAssociation(removedCardItem);
-
-        this.forceUpdate();
-    };
-
-    protected onAddingAssociation = (itemId: number, peopleId: number) => {
-        this.billing.addAssociation(itemId, peopleId);
     };
 }
 
