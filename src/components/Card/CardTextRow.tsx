@@ -62,9 +62,8 @@ class CardTextRow extends React.Component<IProps> {
     };
 
     private onRemove = (event: any) => {
-        event.preventDefault();
+        event.stopPropagation();
         this.props.onRemove(this.props.cardItem);
-        return false;
     };
 
     private setItemReference = (node: HTMLLIElement | null) => {

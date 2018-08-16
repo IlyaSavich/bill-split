@@ -52,43 +52,43 @@ class App extends React.Component<{}, IState> {
     private onAddingAssociation = (itemId: number, peopleId: number) => {
         const splittedBill = this.billing.addAssociation(itemId, peopleId);
 
-        this.setState({...this.state, splittedBill});
+        this.setState({ ...this.state, splittedBill });
     };
 
     private onSelectedCardItem = (cardItem: ICardItem, cardItemRef: HTMLLIElement | null) => {
-        this.setState({...this.state, selectedCardItem: cardItem});
+        this.setState({ ...this.state, selectedCardItem: cardItem });
         this.cardItemRef = cardItemRef;
     };
 
     private onRemoveItem = (cardItem: ICardItem) => {
         const splittedBill = this.billing.removeItem(cardItem);
 
-        this.setState({...this.state, splittedBill});
+        this.setState({ ...this.state, splittedBill });
     };
 
     private onRemoveHuman = (cardItem: ICardItem) => {
         const splittedBill = this.billing.removeHuman(cardItem);
 
-        this.setState({...this.state, splittedBill});
+        this.setState({ ...this.state, splittedBill });
     };
 
     private onClickOutSide = (event: any) => {
         if (this.cardItemRef && !this.cardItemRef.contains(event.target)) {
-            this.setState({...this.state, selectedCardItem: null});
+            this.setState({ ...this.state, selectedCardItem: null });
             this.cardItemRef = null;
         }
     };
 
     private onAddItem = (cardItem: ICardItem) => {
-        const splittedBill = this.billing.addItem({id: cardItem.id, price: cardItem.price});
+        const splittedBill = this.billing.addItem({ id: cardItem.id, price: cardItem.price });
 
-        this.setState({...this.state, splittedBill});
+        this.setState({ ...this.state, splittedBill });
     };
 
     private onAddHuman = (cardItem: ICardItem) => {
-        const splittedBill = this.billing.addHuman({id: cardItem.id, money: cardItem.price});
+        const splittedBill = this.billing.addHuman({ id: cardItem.id, money: cardItem.price });
 
-        this.setState({...this.state, splittedBill});
+        this.setState({ ...this.state, splittedBill });
     };
 }
 

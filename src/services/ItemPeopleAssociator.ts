@@ -12,6 +12,15 @@ interface IItemPeopleAssociation {
     peopleId: number;
 }
 
+interface IAssociationAccessor {
+    associationKey: string,
+    defaultValue: ISelectedIds,
+    result: {
+        arrayKey: string,
+        associationKey: string,
+    },
+}
+
 export default class ItemPeopleAssociator {
     private associations: IItemPeopleAssociation[] = [];
 
@@ -32,7 +41,7 @@ export default class ItemPeopleAssociator {
             carry[propertyAccessor.result.arrayKey].push(association[propertyAccessor.result.associationKey]);
 
             return carry;
-        }, {itemIds: propertyAccessor.defaultValue.itemIds, peopleIds: propertyAccessor.defaultValue.peopleIds});
+        }, { ...propertyAccessor.defaultValue }) || this.associations;
     }
 
     public filterItemsWithoutAssociation(items: Record<number, IBillingItem>) {
@@ -62,7 +71,7 @@ export default class ItemPeopleAssociator {
         );
     }
 
-    private getAssociationPropertyAccessor(cardItem: ICardItem) {
+    private getAssociationPropertyAccessor(cardItem: ICardItem): IAssociationAccessor {
         return cardItem.cardTitle === 'Items' ? {
             associationKey: 'itemId',
             defaultValue: {

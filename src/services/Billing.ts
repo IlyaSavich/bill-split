@@ -79,9 +79,9 @@ export default class Billing {
         );
 
         for (const human of this.people) {
-            splittedBill[human.id] = priceForAll + (
+            splittedBill[human.id] = human.money - priceForAll - (
                 preparedPeopleItems[human.id] ? _.sumBy(preparedPeopleItems[human.id], 'price') : 0
-            ) - human.money;
+            );
         }
 
         return splittedBill;
