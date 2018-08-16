@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import {ICardItem} from 'src/models';
-import ItemPeopleAssociator from 'src/services/ItemPeopleAssociator';
+import * as associationHelper from 'src/services/association/ItemHumanAssociationHelper';
+import associator from 'src/services/association/ItemHumanAssociator';
 
 export interface IBillingItem {
     id: number;
@@ -12,14 +13,9 @@ interface IBillingHuman {
     money: number;
 }
 
-export default class Billing {
-    private associator: ItemPeopleAssociator;
+export default new class Billing {
     private items: Record<number, IBillingItem> = {};
     private people: IBillingHuman[] = [];
-
-    constructor() {
-        this.associator = new ItemPeopleAssociator();
-    }
 
     public addItem(item: IBillingItem): Record<number, number> {
         this.items[item.id] = item;
@@ -33,7 +29,7 @@ export default class Billing {
                 delete this.items[itemId];
             }
         }
-        this.associator.remove(cardItem);
+        associator.remove(cardItem);
 
         return this.recalculate();
     }
@@ -46,25 +42,21 @@ export default class Billing {
 
     public removeHuman(cardItem: ICardItem): Record<number, number> {
         _.remove(this.people, (human: IBillingHuman) => human.id === cardItem.id);
-        this.associator.remove(cardItem);
+        associator.remove(cardItem);
 
         return this.recalculate();
     }
 
     public addAssociation(itemId: number, peopleId: number): Record<number, number> {
-        this.associator.add({ itemId, peopleId });
+        associator.add({ itemId, peopleId });
 
         return this.recalculate();
     }
 
     public removeAssociation(cardItem: ICardItem): Record<number, number> {
-        this.associator.remove(cardItem);
+        associator.remove(cardItem);
 
         return this.recalculate();
-    }
-
-    public getIdsFromAssociations(cardItem: ICardItem | null) {
-        return this.associator.getIdsFromAssociations(cardItem);
     }
 
     /**
@@ -72,8 +64,8 @@ export default class Billing {
      */
     private recalculate(): Record<number, number> {
         const splittedBill: Record<number, number> = [];
-        const priceForAll = _.sumBy(this.associator.filterItemsWithoutAssociation(this.items), 'price');
-        const peopleItems = this.associator.getAssociationsGroupedByPeopleId();
+        const priceForAll = _.sumBy(associationHelper.filterItemsWithoutAssociation(this.items), 'price');
+        const peopleItems = associationHelper.getAssociationsGroupedByPeopleId();
         const preparedPeopleItems = peopleItems.map(
             (itemIds: number[]) => itemIds.map((itemId: number) => this.items[itemId]),
         );

@@ -3,30 +3,24 @@ import 'src/App.css';
 import Card from 'src/components/Card/Card';
 import PeopleCard from 'src/components/Card/People/PeopleCard';
 import {ICardItem} from 'src/models';
-import Billing from 'src/services/Billing';
+import * as associationHelper from 'src/services/association/ItemHumanAssociationHelper';
+import billing from 'src/services/Billing';
 
 interface IState {
+    cardItemRef: HTMLLIElement | null;
     selectedCardItem: ICardItem | null;
     splittedBill: Record<number, number>;
 }
 
 class App extends React.Component<{}, IState> {
     public state = {
+        cardItemRef: null,
         selectedCardItem: null,
         splittedBill: {},
     };
 
-    private cardItemRef: HTMLLIElement | null = null;
-    private billing: Billing;
-
-    constructor(props: any) {
-        super(props);
-
-        this.billing = new Billing();
-    }
-
     public render() {
-        const ids = this.billing.getIdsFromAssociations(this.state.selectedCardItem);
+        const ids = associationHelper.getSelectedIdsFromAssociations(this.state.selectedCardItem);
 
         return (
             <div className="App" onClick={this.onClickOutSide}>
@@ -50,43 +44,43 @@ class App extends React.Component<{}, IState> {
     }
 
     private onAddingAssociation = (itemId: number, peopleId: number) => {
-        const splittedBill = this.billing.addAssociation(itemId, peopleId);
+        const splittedBill = billing.addAssociation(itemId, peopleId);
 
         this.setState({ ...this.state, splittedBill });
     };
 
-    private onSelectedCardItem = (cardItem: ICardItem, cardItemRef: HTMLLIElement | null) => {
-        this.setState({ ...this.state, selectedCardItem: cardItem });
-        this.cardItemRef = cardItemRef;
+    private onSelectedCardItem = (selectedCardItem: ICardItem, cardItemRef: HTMLLIElement | null) => {
+        this.setState({ ...this.state, selectedCardItem, cardItemRef });
     };
 
     private onRemoveItem = (cardItem: ICardItem) => {
-        const splittedBill = this.billing.removeItem(cardItem);
+        const splittedBill = billing.removeItem(cardItem);
 
         this.setState({ ...this.state, splittedBill });
     };
 
     private onRemoveHuman = (cardItem: ICardItem) => {
-        const splittedBill = this.billing.removeHuman(cardItem);
+        const splittedBill = billing.removeHuman(cardItem);
 
         this.setState({ ...this.state, splittedBill });
     };
 
     private onClickOutSide = (event: any) => {
-        if (this.cardItemRef && !this.cardItemRef.contains(event.target)) {
-            this.setState({ ...this.state, selectedCardItem: null });
-            this.cardItemRef = null;
+        const cardItemRef = this.state.cardItemRef as HTMLLIElement | null;
+
+        if (cardItemRef && !cardItemRef.contains(event.target)) {
+            this.setState({ ...this.state, selectedCardItem: null, cardItemRef: null });
         }
     };
 
     private onAddItem = (cardItem: ICardItem) => {
-        const splittedBill = this.billing.addItem({ id: cardItem.id, price: cardItem.price });
+        const splittedBill = billing.addItem({ id: cardItem.id, price: cardItem.price });
 
         this.setState({ ...this.state, splittedBill });
     };
 
     private onAddHuman = (cardItem: ICardItem) => {
-        const splittedBill = this.billing.addHuman({ id: cardItem.id, money: cardItem.price });
+        const splittedBill = billing.addHuman({ id: cardItem.id, money: cardItem.price });
 
         this.setState({ ...this.state, splittedBill });
     };
