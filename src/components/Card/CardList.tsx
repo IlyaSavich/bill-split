@@ -1,18 +1,20 @@
 import * as _ from 'lodash';
 import * as React from 'react';
 import CardFormRow from 'src/components/Card/CardFormRow';
-import CardTextRow from 'src/components/Card/CardTextRow';
-import {ICardItem} from 'src/models';
+import CardTextRow from 'src/components/Card/CardTextRow/CardTextRow';
+import { ICardItem } from 'src/models';
 
 export interface IProps {
     cardTitle: string;
     ids: number[] | null;
     isCreating: boolean;
     isClearing: boolean;
+    selectedCardItem: ICardItem | null;
     onCreated: (cardItem: ICardItem) => void;
     onCancelCreating: () => void;
     afterClearing: () => void;
     onAddingAssociation: (itemId: number, peopleId: number) => void;
+    onRemovingAssociation: (targetCardItem: ICardItem) => void;
     onRemoveItem: (cardItem: ICardItem) => void;
     onSelectedCardItem: (cardItem: ICardItem, cardItemRef: HTMLLIElement | null) => void;
 }
@@ -56,10 +58,12 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
         }).map(
             (cardItem: ICardItem) =>
                 <CardTextRow key={cardItem.id}
-                             cardItem={cardItem}
-                             onRemove={this.onRemoveRow}
-                             onAddingAssociation={this.props.onAddingAssociation}
-                             onSelectedCardItem={this.props.onSelectedCardItem}
+                    cardItem={cardItem}
+                    isSelected={_.isEqual(this.props.selectedCardItem, cardItem)}
+                    onRemove={this.onRemoveRow}
+                    onAddingAssociation={this.props.onAddingAssociation}
+                    onRemovingAssociation={this.props.onRemovingAssociation}
+                    onSelectedCardItem={this.props.onSelectedCardItem}
                 />,
         )
     }
@@ -75,9 +79,9 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
         if (this.state.isCreating) {
             cardComponents.push(
                 <CardFormRow key="card-form"
-                             onCreated={this.onCreated}
-                             onCancel={this.onCancelCreating}
-                             cardTitle={this.props.cardTitle}/>,
+                    onCreated={this.onCreated}
+                    onCancel={this.onCancelCreating}
+                    cardTitle={this.props.cardTitle} />,
             );
         }
 

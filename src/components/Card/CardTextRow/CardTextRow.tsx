@@ -1,23 +1,29 @@
+import 'src/components/Card/CardTextRow/CardTextRow.css'
 import * as React from 'react';
-import {ICardItem} from 'src/models';
+import { ICardItem } from 'src/models';
 
 interface IProps {
     cardItem: ICardItem;
+    isSelected: boolean;
     onRemove: (cardItem: ICardItem) => void;
     onAddingAssociation: (itemId: number, peopleId: number) => void;
+    onRemovingAssociation: (targerCardItem: ICardItem) => void;
     onSelectedCardItem: (cardItem: ICardItem, cardItemRef: HTMLLIElement | null) => void;
 }
 
 class CardTextRow extends React.Component<IProps> {
+
     private nodeRef: HTMLLIElement | null = null;
 
     public render() {
+        const className = `list-group-item ${this.props.isSelected ? 'color-blue' : 'btn-outline-light'}`
         return (
-            <li className="list-group-item"
+            <li className={className}
                 draggable={true}
                 onDragEnter={this.preventEvent}
                 onDragOver={this.preventEvent}
                 onDragStart={this.onDragStart}
+                onDragEnd={this.onDragEnd}
                 onClick={this.onClick}
                 onDrop={this.onDrop}
                 ref={this.setItemReference}
@@ -45,20 +51,30 @@ class CardTextRow extends React.Component<IProps> {
 
     private onClick = () => {
         this.props.onSelectedCardItem(this.props.cardItem, this.nodeRef);
+        this.setState({ isSelected: true })
     };
 
     private onDrop = (event: React.DragEvent<HTMLLIElement>) => {
         const draggedId = Number(event.dataTransfer.getData('dragged.id'));
         const draggedCardTitle = event.dataTransfer.getData('dragged.cardTitle');
+        if (draggedCardTitle === this.props.cardItem.cardTitle) {
+            return
+        }
         const association = draggedCardTitle === 'Items' ? {
             itemId: draggedId,
             peopleId: this.props.cardItem.id,
         } : {
-            itemId: this.props.cardItem.id,
-            peopleId: draggedId,
-        };
+                itemId: this.props.cardItem.id,
+                peopleId: draggedId,
+            };
 
         this.props.onAddingAssociation(association.itemId, association.peopleId);
+    };
+
+    private onDragEnd = (event: React.DragEvent<HTMLLIElement>) => {
+        if (event.dataTransfer.dropEffect === 'none') {
+            this.props.onRemovingAssociation(this.props.cardItem)
+        }
     };
 
     private onRemove = (event: any) => {

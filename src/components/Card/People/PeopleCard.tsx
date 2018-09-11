@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Card, {IProps as BaseIProps} from 'src/components/Card/Card';
+import Card, { IProps as BaseIProps } from 'src/components/Card/Card';
 import PeopleCardList from 'src/components/Card/People/PeopleCardList';
 
 interface IProps extends BaseIProps {
@@ -24,12 +24,14 @@ export default class PeopleCard extends Card<IProps> {
                         onCancelCreating={this.onCancelCreating}
                         afterClearing={this.afterClearing}
                         onAddingAssociation={this.props.onAddingAssociation}
+                        onRemovingAssociation={this.props.onRemovingAssociation}
                         onSelectedCardItem={this.props.onSelectedCardItem}
                         cardTitle={this.props.title}
                         ids={this.props.ids}
                         splittedBill={this.props.splittedBill}
                         onCreated={this.onCreated}
                         onRemoveItem={this.props.onRemoveItem}
+                        selectedCardItem={this.props.selectedCardItem}
                     />
                 </ul>
             </div>

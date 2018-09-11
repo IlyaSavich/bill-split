@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import {ICardItem} from 'src/models';
+import { ICardItem } from 'src/models';
 import * as associationHelper from 'src/services/association/ItemHumanAssociationHelper';
 import associator from 'src/services/association/ItemHumanAssociator';
 
@@ -53,7 +53,13 @@ export default new class Billing {
         return this.recalculate();
     }
 
-    public removeAssociation(cardItem: ICardItem): Record<number, number> {
+    public removeAssociation(cardItem: ICardItem, selectedCardItem: ICardItem): Record<number, number> {
+        associator.removeAssociation(cardItem, selectedCardItem);
+
+        return this.recalculate();
+    }
+
+    public removeAllAssociations(cardItem: ICardItem): Record<number, number> {
         associator.remove(cardItem);
 
         return this.recalculate();

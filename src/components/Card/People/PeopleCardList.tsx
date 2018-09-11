@@ -1,7 +1,8 @@
 import * as React from 'react';
-import CardList, {IProps as BaseIProps} from 'src/components/Card/CardList';
-import CardTextRow from 'src/components/Card/CardTextRow';
-import {ICardItem} from 'src/models';
+import * as _ from 'lodash';
+import CardList, { IProps as BaseIProps } from 'src/components/Card/CardList';
+import CardTextRow from 'src/components/Card/CardTextRow/CardTextRow';
+import { ICardItem } from 'src/models';
 
 interface IProps extends BaseIProps {
     splittedBill: Record<number, number>;
@@ -14,12 +15,14 @@ export default class PeopleCardList extends CardList<IProps> {
         }).map(
             (cardItem: ICardItem) => {
                 const newCardItem: ICardItem = { ...cardItem, price: this.props.splittedBill[cardItem.id] };
-
+                const isSelected = _.isEqual(_.omit(this.props.selectedCardItem, 'price'), _.omit(cardItem, 'price'))
                 return <CardTextRow key={cardItem.id}
-                                    cardItem={newCardItem}
-                                    onRemove={this.onRemoveRow}
-                                    onAddingAssociation={this.props.onAddingAssociation}
-                                    onSelectedCardItem={this.props.onSelectedCardItem}
+                    cardItem={newCardItem}
+                    isSelected={isSelected}
+                    onRemove={this.onRemoveRow}
+                    onAddingAssociation={this.props.onAddingAssociation}
+                    onRemovingAssociation={this.props.onRemovingAssociation}
+                    onSelectedCardItem={this.props.onSelectedCardItem}
                 />;
             },
         )

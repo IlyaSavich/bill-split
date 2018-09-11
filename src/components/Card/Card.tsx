@@ -1,11 +1,13 @@
 import * as React from 'react';
 import CardList from 'src/components/Card/CardList';
-import {ICardItem} from 'src/models';
+import { ICardItem } from 'src/models';
 
 export interface IProps {
     title: string;
     ids: number[] | null;
+    selectedCardItem: ICardItem | null;
     onAddingAssociation: (itemId: number, peopleId: number) => void;
+    onRemovingAssociation: (targetCardItem: ICardItem) => void;
     onCreated: (cardItem: ICardItem) => void;
     onRemoveItem: (cardItem: ICardItem) => void;
     onSelectedCardItem: (cardItem: ICardItem, cardItemRef: HTMLLIElement | null) => void;
@@ -40,10 +42,12 @@ class Card<P extends IProps> extends React.Component<P, IState> {
                         onCancelCreating={this.onCancelCreating}
                         afterClearing={this.afterClearing}
                         onAddingAssociation={this.props.onAddingAssociation}
+                        onRemovingAssociation={this.props.onRemovingAssociation}
                         onSelectedCardItem={this.props.onSelectedCardItem}
                         onRemoveItem={this.props.onRemoveItem}
                         cardTitle={this.props.title}
                         ids={this.props.ids}
+                        selectedCardItem={this.props.selectedCardItem}
                     />
                 </ul>
             </div>

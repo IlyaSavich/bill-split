@@ -1,8 +1,9 @@
 import * as React from 'react';
+import * as _ from 'lodash';
 import 'src/App.css';
 import Card from 'src/components/Card/Card';
 import PeopleCard from 'src/components/Card/People/PeopleCard';
-import {ICardItem} from 'src/models';
+import { ICardItem } from 'src/models';
 import * as associationHelper from 'src/services/association/ItemHumanAssociationHelper';
 import billing from 'src/services/Billing';
 
@@ -25,19 +26,24 @@ class App extends React.Component<{}, IState> {
         return (
             <div className="App" onClick={this.onClickOutSide}>
                 <Card title="Items"
-                      ids={ids.itemIds}
-                      onSelectedCardItem={this.onSelectedCardItem}
-                      onAddingAssociation={this.onAddingAssociation}
-                      onRemoveItem={this.onRemoveItem}
-                      onCreated={this.onAddItem}
+                    ids={ids.itemIds}
+                    onSelectedCardItem={this.onSelectedCardItem}
+                    onAddingAssociation={this.onAddingAssociation}
+                    onRemovingAssociation={this.onRemovingAssociation}
+                    onRemoveItem={this.onRemoveItem}
+                    onCreated={this.onAddItem}
+                    selectedCardItem={this.state.selectedCardItem}
                 />
-                <PeopleCard ids={ids.peopleIds}
-                            onSelectedCardItem={this.onSelectedCardItem}
-                            onAddingAssociation={this.onAddingAssociation}
-                            onRemoveItem={this.onRemoveHuman}
-                            onCreated={this.onAddHuman}
-                            splittedBill={this.state.splittedBill}
-                            title="People"
+                <PeopleCard
+                    title="People"
+                    ids={ids.peopleIds}
+                    onSelectedCardItem={this.onSelectedCardItem}
+                    onAddingAssociation={this.onAddingAssociation}
+                    onRemovingAssociation={this.onRemovingAssociation}
+                    onRemoveItem={this.onRemoveHuman}
+                    onCreated={this.onAddHuman}
+                    splittedBill={this.state.splittedBill}
+                    selectedCardItem={this.state.selectedCardItem}
                 />
             </div>
         );
@@ -48,6 +54,15 @@ class App extends React.Component<{}, IState> {
 
         this.setState({ ...this.state, splittedBill });
     };
+
+    private onRemovingAssociation = (cardItem: ICardItem) => {
+        if (this.state.selectedCardItem) {
+            const splittedBill: Record<number, number> = _.isEqual(cardItem, this.state.selectedCardItem)
+                ? billing.removeAllAssociations(cardItem)
+                : billing.removeAssociation(cardItem, this.state.selectedCardItem!)
+            this.setState({ splittedBill })
+        }
+    }
 
     private onSelectedCardItem = (selectedCardItem: ICardItem, cardItemRef: HTMLLIElement | null) => {
         this.setState({ ...this.state, selectedCardItem, cardItemRef });
