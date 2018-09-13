@@ -1,4 +1,5 @@
 import 'src/components/Card/CardTextRow/CardTextRow.css'
+import * as cx from 'classnames'
 import * as React from 'react';
 import { ICardItem } from 'src/models';
 
@@ -16,7 +17,7 @@ class CardTextRow extends React.Component<IProps> {
     private nodeRef: HTMLLIElement | null = null;
 
     public render() {
-        const className = `list-group-item ${this.props.isSelected ? 'color-blue' : 'btn-outline-light'}`
+        const className = cx('list-group-item', { 'color-blue': this.props.isSelected, 'btn-outline-light': !this.props.isSelected })
         return (
             <li className={className}
                 draggable={true}
@@ -51,7 +52,6 @@ class CardTextRow extends React.Component<IProps> {
 
     private onClick = () => {
         this.props.onSelectedCardItem(this.props.cardItem, this.nodeRef);
-        this.setState({ isSelected: true })
     };
 
     private onDrop = (event: React.DragEvent<HTMLLIElement>) => {

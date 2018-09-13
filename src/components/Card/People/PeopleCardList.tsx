@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as _ from 'lodash';
 import CardList, { IProps as BaseIProps } from 'src/components/Card/CardList';
 import CardTextRow from 'src/components/Card/CardTextRow/CardTextRow';
 import { ICardItem } from 'src/models';
@@ -15,8 +14,9 @@ export default class PeopleCardList extends CardList<IProps> {
         }).map(
             (cardItem: ICardItem) => {
                 const newCardItem: ICardItem = { ...cardItem, price: this.props.splittedBill[cardItem.id] };
-                const isSelected = _.isEqual(_.omit(this.props.selectedCardItem, 'price'), _.omit(cardItem, 'price'))
-                return <CardTextRow key={cardItem.id}
+                const isSelected = !!this.props.selectedCardItem && this.props.selectedCardItem.id === cardItem.id
+                return <CardTextRow
+                    key={cardItem.id}
                     cardItem={newCardItem}
                     isSelected={isSelected}
                     onRemove={this.onRemoveRow}

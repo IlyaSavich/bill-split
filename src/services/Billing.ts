@@ -29,7 +29,7 @@ export default new class Billing {
                 delete this.items[itemId];
             }
         }
-        associator.remove(cardItem);
+        associator.removeAll(cardItem);
 
         return this.recalculate();
     }
@@ -42,7 +42,7 @@ export default new class Billing {
 
     public removeHuman(cardItem: ICardItem): Record<number, number> {
         _.remove(this.people, (human: IBillingHuman) => human.id === cardItem.id);
-        associator.remove(cardItem);
+        associator.removeAll(cardItem);
 
         return this.recalculate();
     }
@@ -60,7 +60,7 @@ export default new class Billing {
     }
 
     public removeAllAssociations(cardItem: ICardItem): Record<number, number> {
-        associator.remove(cardItem);
+        associator.removeAll(cardItem);
 
         return this.recalculate();
     }

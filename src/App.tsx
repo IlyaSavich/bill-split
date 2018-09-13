@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as _ from 'lodash';
 import 'src/App.css';
 import Card from 'src/components/Card/Card';
 import PeopleCard from 'src/components/Card/People/PeopleCard';
@@ -57,7 +56,8 @@ class App extends React.Component<{}, IState> {
 
     private onRemovingAssociation = (cardItem: ICardItem) => {
         if (this.state.selectedCardItem) {
-            const splittedBill: Record<number, number> = _.isEqual(cardItem, this.state.selectedCardItem)
+            const id = 'id'
+            const splittedBill: Record<number, number> = this.state.selectedCardItem![id] === cardItem.id
                 ? billing.removeAllAssociations(cardItem)
                 : billing.removeAssociation(cardItem, this.state.selectedCardItem!)
             this.setState({ splittedBill })

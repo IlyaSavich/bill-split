@@ -52,7 +52,6 @@ export function getSelectedIdsFromAssociations(cardItem: ICardItem | null): ISel
 
     const propertyAccessor = ASSOCIATION_ACCESSOR_MAP[cardItem.cardTitle] as IAssociationAccessor;
     const associations = associator.getAll();
-    
     return associations.reduce((carry: ISelectedIds, association: IItemHumanAssociation) => {
         const checkId = association[propertyAccessor.associationKey];
 
@@ -63,7 +62,7 @@ export function getSelectedIdsFromAssociations(cardItem: ICardItem | null): ISel
         carry[propertyAccessor.result.arrayKey].push(association[propertyAccessor.result.associationKey]);
 
         return carry;
-    }, _.cloneDeep(propertyAccessor.defaultValue)) || associations
+    }, _.cloneDeep(propertyAccessor.defaultValue)) || associations;
 }
 
 /**
