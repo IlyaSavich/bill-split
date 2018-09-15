@@ -15,7 +15,7 @@ export default new class ItemHumanAssociator {
     /**
      * Remove all associations for selected card item
      */
-    public removeAll(cardItem: ICardItem) {
+    public removeAllForCardItem(cardItem: ICardItem) {
         const associationKey = this.getAssociationKey(cardItem)
         this.associations = this.associations.filter(
             association => association[associationKey] !== cardItem.id

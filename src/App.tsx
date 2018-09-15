@@ -82,8 +82,8 @@ class App extends React.Component<{}, IState> {
 
     private onClickOutSide = (event: any) => {
         const cardItemRef = this.state.cardItemRef as HTMLLIElement | null;
-
-        if (cardItemRef && !cardItemRef.contains(event.target)) {
+        const isSelectable = event.target.dataset.selectable;
+        if (cardItemRef && !isSelectable) {
             this.setState({ ...this.state, selectedCardItem: null, cardItemRef: null });
         }
     };

@@ -28,10 +28,11 @@ class CardTextRow extends React.Component<IProps> {
                 onClick={this.onClick}
                 onDrop={this.onDrop}
                 ref={this.setItemReference}
+                data-selectable={true}
             >
-                <span className="title">{this.props.cardItem.title}</span>
-                <span className="price">${this.props.cardItem.price}</span>
-                <span className="toolbar">
+                <span data-selectable={true}>{this.props.cardItem.title}</span>
+                <span data-selectable={true}>${this.props.cardItem.price}</span>
+                <span>
                     <div className="btn-group btn-group-sm" role="group">
                         <button type="button" className="btn btn-secondary" onClick={this.onRemove}>-</button>
                     </div>

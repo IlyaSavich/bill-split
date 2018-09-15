@@ -11,7 +11,7 @@ export default class PeopleCard extends Card<IProps> {
         return (
             <div className="card" style={{ width: "18rem" }} key={this.props.title}>
                 <div className="card-header">
-                    <span className="title">{this.props.title}</span>
+                    <span>{this.props.title}</span>
                     <span className="btn-group btn-group-sm" role="group">
                         <button type="button" className="btn btn-secondary" onClick={this.createItem}>+</button>
                         <button type="button" className="btn btn-secondary" onClick={this.removeAll}>-</button>
