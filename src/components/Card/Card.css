@@ -1,0 +1,16 @@
+.card {
+   width: 20rem;
+}
+
+.item-card {
+    background-color: #6263aa;
+    opacity: 0.95;
+}
+
+.people-card {
+    background-color: #6b917e;
+    opacity: 0.95;
+}
+button:focus {
+    outline:0;
+}

@@ -1,6 +1,10 @@
 import * as React from 'react';
 import Card, { IProps as BaseIProps } from 'src/components/Card/Card';
 import PeopleCardList from 'src/components/Card/People/PeopleCardList';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteForever from '@material-ui/icons/DeleteForeverOutlined'
+import AddIcon from '@material-ui/icons/Add';
+import Grid from '@material-ui/core/Grid';
 
 interface IProps extends BaseIProps {
     splittedBill: Record<number, number>;
@@ -9,13 +13,23 @@ interface IProps extends BaseIProps {
 export default class PeopleCard extends Card<IProps> {
     public render() {
         return (
-            <div className="card" style={{ width: "18rem" }} key={this.props.title}>
-                <div className="card-header">
-                    <span>{this.props.title}</span>
-                    <span className="btn-group btn-group-sm" role="group">
-                        <button type="button" className="btn btn-secondary" onClick={this.createItem}>+</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.removeAll}>-</button>
-                    </span>
+            <div className="card people-card" key={this.props.title}>
+                <div className='header'>
+                    <Grid container={true} justify="space-between" alignItems='baseline' direction='row'>
+                        <Grid item={true}>
+                            <IconButton type='button' onClick={this.removeAll}>
+                                <DeleteForever />
+                            </IconButton>
+                        </Grid>
+                        <Grid item={true}>
+                            <span>{this.props.title}</span>
+                        </Grid>
+                        <Grid item={true}>
+                            <IconButton onClick={this.createItem}>
+                                <AddIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
                 </div>
                 <ul className="list-group list-group-flush">
                     <PeopleCardList

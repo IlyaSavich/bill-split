@@ -36,6 +36,6 @@ export default new class ItemHumanAssociator {
     }
 
     private getAssociationKey(cardItem: ICardItem): string {
-        return cardItem.cardTitle === 'Items' ? 'itemId' : 'peopleId';
+        return cardItem.cardTitle.toLowerCase() === 'items' ? 'itemId' : 'peopleId';
     }
 }

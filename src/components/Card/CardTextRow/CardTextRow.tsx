@@ -2,6 +2,11 @@ import 'src/components/Card/CardTextRow/CardTextRow.css'
 import * as cx from 'classnames'
 import * as React from 'react';
 import { ICardItem } from 'src/models';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteOutlined from '@material-ui/icons/DeleteOutlined'
+import EditOutlined from '@material-ui/icons/EditOutlined'
+import Typography from '@material-ui/core/Typography';
 
 interface IProps {
     cardItem: ICardItem;
@@ -30,13 +35,28 @@ class CardTextRow extends React.Component<IProps> {
                 ref={this.setItemReference}
                 data-selectable={true}
             >
-                <span data-selectable={true}>{this.props.cardItem.title}</span>
-                <span data-selectable={true}>${this.props.cardItem.price}</span>
-                <span>
-                    <div className="btn-group btn-group-sm" role="group">
-                        <button type="button" className="btn btn-secondary" onClick={this.onRemove}>-</button>
-                    </div>
-                </span>
+                <Grid container={true} direction='row'>
+                    <Grid container={true} item={true} xs={9} direction='row' justify='space-around' alignItems='center'>
+                        <Grid item={true} zeroMinWidth={true} xs={7} >
+                            <Typography data-selectable={true} variant='body1' noWrap={true}>{this.props.cardItem.title}</Typography>
+                        </Grid>
+                        <Grid item={true} xs={2}>
+                            <Typography data-selectable={true} variant='body1' noWrap={true}>{this.props.cardItem.price}$</Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid container={true} item={true} xs={3} direction='row' justify='flex-end' spacing={8}>
+                        <Grid item={true}>
+                            <IconButton className='icon-24'>
+                                <EditOutlined />
+                            </IconButton>
+                        </Grid>
+                        <Grid item={true}>
+                            <IconButton className='icon-24'>
+                                <DeleteOutlined onClick={this.onRemove} />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+                </Grid>
             </li>
         );
     }
@@ -61,10 +81,11 @@ class CardTextRow extends React.Component<IProps> {
         if (draggedCardTitle === this.props.cardItem.cardTitle) {
             return
         }
-        const association = draggedCardTitle === 'Items' ? {
-            itemId: draggedId,
-            peopleId: this.props.cardItem.id,
-        } : {
+        const association = draggedCardTitle.toLowerCase() === 'items' ?
+            {
+                itemId: draggedId,
+                peopleId: this.props.cardItem.id,
+            } : {
                 itemId: this.props.cardItem.id,
                 peopleId: draggedId,
             };

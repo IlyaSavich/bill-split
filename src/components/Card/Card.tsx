@@ -1,6 +1,11 @@
+import 'src/components/Card/Card.css'
 import * as React from 'react';
 import CardList from 'src/components/Card/CardList';
 import { ICardItem } from 'src/models';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteForever from '@material-ui/icons/DeleteForeverOutlined'
+import AddIcon from '@material-ui/icons/Add';
+import Grid from '@material-ui/core/Grid';
 
 export interface IProps {
     title: string;
@@ -26,13 +31,23 @@ class Card<P extends IProps> extends React.Component<P, IState> {
 
     public render() {
         return (
-            <div className="card" style={{ width: "18rem" }} key={this.props.title}>
-                <div className="card-header">
-                    <span>{this.props.title}</span>
-                    <span className="btn-group btn-group-sm" role="group">
-                        <button type="button" className="btn btn-secondary" onClick={this.createItem}>+</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.removeAll}>-</button>
-                    </span>
+            <div className="card item-card" key={this.props.title}>
+                <div className='header'>
+                    <Grid container={true} justify="space-between" alignItems='baseline' direction='row'>
+                        <Grid item={true}>
+                            <IconButton type='button' onClick={this.removeAll}>
+                                <DeleteForever />
+                            </IconButton>
+                        </Grid>
+                        <Grid item={true}>
+                            <span>{this.props.title}</span>
+                        </Grid>
+                        <Grid item={true}>
+                            <IconButton onClick={this.createItem}>
+                                <AddIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
                 </div>
                 <ul className="list-group list-group-flush">
                     <CardList

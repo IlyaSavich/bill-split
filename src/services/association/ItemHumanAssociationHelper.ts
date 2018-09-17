@@ -18,7 +18,7 @@ interface ISelectedIds {
 }
 
 const ASSOCIATION_ACCESSOR_MAP = {
-    Items: {
+    items: {
         associationKey: 'itemId',
         defaultValue: {
             itemIds: null,
@@ -29,7 +29,7 @@ const ASSOCIATION_ACCESSOR_MAP = {
             associationKey: 'peopleId',
         },
     },
-    People: {
+    people: {
         associationKey: 'peopleId',
         defaultValue: {
             itemIds: [],
@@ -50,7 +50,7 @@ export function getSelectedIdsFromAssociations(cardItem: ICardItem | null): ISel
         return { itemIds: null, peopleIds: null };
     }
 
-    const propertyAccessor = ASSOCIATION_ACCESSOR_MAP[cardItem.cardTitle] as IAssociationAccessor;
+    const propertyAccessor = ASSOCIATION_ACCESSOR_MAP[cardItem.cardTitle.toLowerCase()] as IAssociationAccessor;
     const associations = associator.getAll();
     return associations.reduce((carry: ISelectedIds, association: IItemHumanAssociation) => {
         const checkId = association[propertyAccessor.associationKey];

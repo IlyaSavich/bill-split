@@ -5,6 +5,7 @@ import PeopleCard from 'src/components/Card/People/PeopleCard';
 import { ICardItem } from 'src/models';
 import * as associationHelper from 'src/services/association/ItemHumanAssociationHelper';
 import billing from 'src/services/Billing';
+import Grid from '@material-ui/core/Grid';
 
 interface IState {
     cardItemRef: HTMLLIElement | null;
@@ -23,27 +24,35 @@ class App extends React.Component<{}, IState> {
         const ids = associationHelper.getSelectedIdsFromAssociations(this.state.selectedCardItem);
 
         return (
-            <div className="App" onClick={this.onClickOutSide}>
-                <Card title="Items"
-                    ids={ids.itemIds}
-                    onSelectedCardItem={this.onSelectedCardItem}
-                    onAddingAssociation={this.onAddingAssociation}
-                    onRemovingAssociation={this.onRemovingAssociation}
-                    onRemoveItem={this.onRemoveItem}
-                    onCreated={this.onAddItem}
-                    selectedCardItem={this.state.selectedCardItem}
-                />
-                <PeopleCard
-                    title="People"
-                    ids={ids.peopleIds}
-                    onSelectedCardItem={this.onSelectedCardItem}
-                    onAddingAssociation={this.onAddingAssociation}
-                    onRemovingAssociation={this.onRemovingAssociation}
-                    onRemoveItem={this.onRemoveHuman}
-                    onCreated={this.onAddHuman}
-                    splittedBill={this.state.splittedBill}
-                    selectedCardItem={this.state.selectedCardItem}
-                />
+            <div className='App' onClick={this.onClickOutSide}>
+                <Grid className='margin-top-50'>
+                    <Grid container={true} justify="center" spacing={40}>
+                        <Grid item={true}>
+                            <Card title='ITEMS'
+                                ids={ids.itemIds}
+                                onSelectedCardItem={this.onSelectedCardItem}
+                                onAddingAssociation={this.onAddingAssociation}
+                                onRemovingAssociation={this.onRemovingAssociation}
+                                onRemoveItem={this.onRemoveItem}
+                                onCreated={this.onAddItem}
+                                selectedCardItem={this.state.selectedCardItem}
+                            />
+                        </Grid>
+                        <Grid item={true}>
+                            <PeopleCard
+                                title='PEOPLE'
+                                ids={ids.peopleIds}
+                                onSelectedCardItem={this.onSelectedCardItem}
+                                onAddingAssociation={this.onAddingAssociation}
+                                onRemovingAssociation={this.onRemovingAssociation}
+                                onRemoveItem={this.onRemoveHuman}
+                                onCreated={this.onAddHuman}
+                                splittedBill={this.state.splittedBill}
+                                selectedCardItem={this.state.selectedCardItem}
+                            />
+                        </Grid>
+                    </Grid>
+                </Grid>
             </div>
         );
     }

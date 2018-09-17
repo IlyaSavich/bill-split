@@ -1,7 +1,21 @@
 span {
     color: black;
+ }
+.header span {
+    color: #ffffff;
 }
 
 .color-blue {
     background-color: cornflowerblue;
+}
+
+.icon-24 {
+    width: 24px !important;
+    height: 24px !important;
+    transform: scale(0.8);
+}
+
+.list-group-item {
+    padding-right: 5px;
+    padding-left: 5px;
 }
