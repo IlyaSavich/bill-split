@@ -1,7 +1,7 @@
 import * as React from 'react';
-import CardList, { IProps as BaseIProps } from 'src/components/Card/CardList';
-import CardTextRow from 'src/components/Card/CardTextRow/CardTextRow';
-import { ICardItem } from 'src/models';
+import CardList, { IProps as BaseIProps } from 'components/Card/CardList';
+import CardTextRow from 'components/Card/CardTextRow/CardTextRow';
+import { ICardItem } from 'models';
 
 interface IProps extends BaseIProps {
     splittedBill: Record<number, number>;

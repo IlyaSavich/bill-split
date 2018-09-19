@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
-import { ICardItem } from 'src/models';
-import * as associationHelper from 'src/services/association/ItemHumanAssociationHelper';
-import associator from 'src/services/association/ItemHumanAssociator';
+import { ICardItem } from 'models';
+import * as associationHelper from 'services/association/ItemHumanAssociationHelper';
+import associator from 'services/association/ItemHumanAssociator';
 
 export interface IBillingItem {
     id: number;

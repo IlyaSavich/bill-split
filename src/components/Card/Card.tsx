@@ -1,7 +1,7 @@
-import 'src/components/Card/Card.css';
+import 'components/Card/Card.css';
 import * as React from 'react';
-import CardList from 'src/components/Card/CardList';
-import { ICardItem } from 'src/models';
+import CardList from 'components/Card/CardList';
+import { ICardItem } from 'models';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteForever from '@material-ui/icons/DeleteForeverOutlined';
 import AddIcon from '@material-ui/icons/Add';

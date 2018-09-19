@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { ICardItem } from 'src/models';
-import CardItemIdGenerator from 'src/services/CardItemIdGenerator';
+import { ICardItem } from 'models';
+import CardItemIdGenerator from 'services/CardItemIdGenerator';
 import Input from '@material-ui/core/Input';
 import Done from '@material-ui/icons/Done';
 import Close from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import * as formRowHelper from 'src/components/Card/CardFormRow/CardFormRowHelper';
+import * as formRowHelper from 'components/Card/CardFormRow/CardFormRowHelper';
 interface IProps {
     cardTitle: string;
     onCreated: (card: ICardItem) => void;

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import 'src/App.css';
-import Card from 'src/components/Card/Card';
-import PeopleCard from 'src/components/Card/People/PeopleCard';
-import { ICardItem } from 'src/models';
-import * as associationHelper from 'src/services/association/ItemHumanAssociationHelper';
-import billing from 'src/services/Billing';
+import 'App.css';
+import Card from 'components/Card/Card';
+import PeopleCard from 'components/Card/People/PeopleCard';
+import { ICardItem } from 'models';
+import * as associationHelper from 'services/association/ItemHumanAssociationHelper';
+import billing from 'services/Billing';
 import Grid from '@material-ui/core/Grid';
 
 interface IState {

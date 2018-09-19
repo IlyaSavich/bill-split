@@ -1,4 +1,4 @@
-import { ICardItem } from 'src/models';
+import { ICardItem } from 'models';
 
 export interface IItemHumanAssociation {
     itemId: number;

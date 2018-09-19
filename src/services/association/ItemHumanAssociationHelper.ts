@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
-import { ICardItem } from 'src/models';
-import associator, { IItemHumanAssociation } from 'src/services/association/ItemHumanAssociator';
-import { IBillingItem } from 'src/services/Billing';
+import { ICardItem } from 'models';
+import associator, { IItemHumanAssociation } from 'services/association/ItemHumanAssociator';
+import { IBillingItem } from 'services/Billing';
 
 interface IAssociationAccessor {
     associationKey: string;

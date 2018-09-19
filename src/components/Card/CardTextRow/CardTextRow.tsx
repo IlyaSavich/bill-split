@@ -1,7 +1,7 @@
-import 'src/components/Card/CardTextRow/CardTextRow.css';
+import 'components/Card/CardTextRow/CardTextRow.css';
 import * as cx from 'classnames';
 import * as React from 'react';
-import { ICardItem } from 'src/models';
+import { ICardItem } from 'models';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlined from '@material-ui/icons/DeleteOutlined';

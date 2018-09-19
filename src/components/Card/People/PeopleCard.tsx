@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Card, { IProps as BaseIProps } from 'src/components/Card/Card';
-import PeopleCardList from 'src/components/Card/People/PeopleCardList';
+import Card, { IProps as BaseIProps } from 'components/Card/Card';
+import PeopleCardList from 'components/Card/People/PeopleCardList';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteForever from '@material-ui/icons/DeleteForeverOutlined';
 import AddIcon from '@material-ui/icons/Add';

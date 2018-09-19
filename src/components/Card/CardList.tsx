@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 import * as React from 'react';
-import CardFormRow from 'src/components/Card/CardFormRow/CardFormRow';
-import CardTextRow from 'src/components/Card/CardTextRow/CardTextRow';
-import { ICardItem } from 'src/models';
+import CardFormRow from 'components/Card/CardFormRow/CardFormRow';
+import CardTextRow from 'components/Card/CardTextRow/CardTextRow';
+import { ICardItem } from 'models';
 
 export interface IProps {
     cardTitle: string;
