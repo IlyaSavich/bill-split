@@ -2,11 +2,11 @@ import * as React from 'react';
 import { ICardItem } from 'src/models';
 import CardItemIdGenerator from 'src/services/CardItemIdGenerator';
 import Input from '@material-ui/core/Input';
-import Done from '@material-ui/icons/Done'
-import Close from '@material-ui/icons/Close'
+import Done from '@material-ui/icons/Done';
+import Close from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import * as formRowHelper from 'src/components/Card/CardFormRow/CardFormRowHelper'
+import * as formRowHelper from 'src/components/Card/CardFormRow/CardFormRowHelper';
 interface IProps {
     cardTitle: string;
     onCreated: (card: ICardItem) => void;
@@ -20,13 +20,13 @@ class CardFormRow extends React.Component<IProps> {
             <li className="list-group-item">
                 <form name="create-list-item" onSubmit={this.onCreated}>
                     <MuiThemeProvider theme={formProperties.theme}>
-                        <Input autoFocus={true} name='title' placeholder={formProperties.placeholder} required={true} type='text' />
-                        <Input name='price' placeholder={formProperties.placeholder2} required={true} type='number' />
+                        <Input autoFocus={true} name="title" placeholder={formProperties.placeholder} required={true} type="text" />
+                        <Input name="price" placeholder={formProperties.placeholder2} required={true} type="number" />
                         <div>
-                            <IconButton type='button' onClick={this.props.onCancel}>
+                            <IconButton type="button" onClick={this.props.onCancel}>
                                 <Close />
                             </IconButton>
-                            <IconButton type='submit'>
+                            <IconButton type="submit">
                                 <Done />
                             </IconButton>
                         </div>

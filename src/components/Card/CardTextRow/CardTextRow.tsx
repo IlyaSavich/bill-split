@@ -1,11 +1,11 @@
-import 'src/components/Card/CardTextRow/CardTextRow.css'
-import * as cx from 'classnames'
+import 'src/components/Card/CardTextRow/CardTextRow.css';
+import * as cx from 'classnames';
 import * as React from 'react';
 import { ICardItem } from 'src/models';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteOutlined from '@material-ui/icons/DeleteOutlined'
-import EditOutlined from '@material-ui/icons/EditOutlined'
+import DeleteOutlined from '@material-ui/icons/DeleteOutlined';
+import EditOutlined from '@material-ui/icons/EditOutlined';
 import Typography from '@material-ui/core/Typography';
 
 interface IProps {
@@ -22,7 +22,7 @@ class CardTextRow extends React.Component<IProps> {
     private nodeRef: HTMLLIElement | null = null;
 
     public render() {
-        const className = cx('list-group-item', { 'color-blue': this.props.isSelected, 'btn-outline-light': !this.props.isSelected })
+        const className = cx('list-group-item', { 'color-blue': this.props.isSelected, 'btn-outline-light': !this.props.isSelected });
         return (
             <li className={className}
                 draggable={true}
@@ -35,23 +35,23 @@ class CardTextRow extends React.Component<IProps> {
                 ref={this.setItemReference}
                 data-selectable={true}
             >
-                <Grid container={true} direction='row'>
-                    <Grid container={true} item={true} xs={9} direction='row' justify='space-around' alignItems='center'>
+                <Grid container={true} direction="row">
+                    <Grid container={true} item={true} xs={9} direction="row" justify="space-around" alignItems="center">
                         <Grid item={true} zeroMinWidth={true} xs={7} >
-                            <Typography data-selectable={true} variant='body1' noWrap={true}>{this.props.cardItem.title}</Typography>
+                            <Typography data-selectable={true} variant="body1" noWrap={true}>{this.props.cardItem.title}</Typography>
                         </Grid>
                         <Grid item={true} xs={2}>
-                            <Typography data-selectable={true} variant='body1' noWrap={true}>{this.props.cardItem.price}$</Typography>
+                            <Typography data-selectable={true} variant="body1" noWrap={true}>${this.props.cardItem.price}</Typography>
                         </Grid>
                     </Grid>
-                    <Grid container={true} item={true} xs={3} direction='row' justify='flex-end' spacing={8}>
+                    <Grid container={true} item={true} xs={3} direction="row" justify="flex-end" spacing={8}>
                         <Grid item={true}>
-                            <IconButton className='icon-24'>
+                            <IconButton className="icon-24">
                                 <EditOutlined />
                             </IconButton>
                         </Grid>
                         <Grid item={true}>
-                            <IconButton className='icon-24'>
+                            <IconButton className="icon-24">
                                 <DeleteOutlined onClick={this.onRemove} />
                             </IconButton>
                         </Grid>
@@ -79,7 +79,7 @@ class CardTextRow extends React.Component<IProps> {
         const draggedId = Number(event.dataTransfer.getData('dragged.id'));
         const draggedCardTitle = event.dataTransfer.getData('dragged.cardTitle');
         if (draggedCardTitle === this.props.cardItem.cardTitle) {
-            return
+            return;
         }
         const association = draggedCardTitle.toLowerCase() === 'items' ?
             {
@@ -95,7 +95,7 @@ class CardTextRow extends React.Component<IProps> {
 
     private onDragEnd = (event: React.DragEvent<HTMLLIElement>) => {
         if (event.dataTransfer.dropEffect === 'none') {
-            this.props.onRemovingAssociation(this.props.cardItem)
+            this.props.onRemovingAssociation(this.props.cardItem);
         }
     };
 

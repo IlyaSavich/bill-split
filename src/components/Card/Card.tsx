@@ -1,9 +1,9 @@
-import 'src/components/Card/Card.css'
+import 'src/components/Card/Card.css';
 import * as React from 'react';
 import CardList from 'src/components/Card/CardList';
 import { ICardItem } from 'src/models';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteForever from '@material-ui/icons/DeleteForeverOutlined'
+import DeleteForever from '@material-ui/icons/DeleteForeverOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
 
@@ -32,10 +32,10 @@ class Card<P extends IProps> extends React.Component<P, IState> {
     public render() {
         return (
             <div className="card item-card" key={this.props.title}>
-                <div className='header'>
-                    <Grid container={true} justify="space-between" alignItems='baseline' direction='row'>
+                <div className="header">
+                    <Grid container={true} justify="space-between" alignItems="baseline" direction="row">
                         <Grid item={true}>
-                            <IconButton type='button' onClick={this.removeAll}>
+                            <IconButton type="button" onClick={this.removeAll}>
                                 <DeleteForever />
                             </IconButton>
                         </Grid>

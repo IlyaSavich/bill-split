@@ -10,8 +10,8 @@ const FORM_PROPERTIES_MAP = {
             createMuiTheme({
                 palette: {
                     primary: purple,
-                }
-            })
+                },
+            }),
     },
     people: {
         placeholder: 'Name',
@@ -20,11 +20,11 @@ const FORM_PROPERTIES_MAP = {
             createMuiTheme({
                 palette: {
                     primary: green,
-                }
-            })
-    }
-}
+                },
+            }),
+    },
+};
 
 export function getFormProperties(cardTitle: string) {
-    return FORM_PROPERTIES_MAP[cardTitle.toLowerCase()]
+    return FORM_PROPERTIES_MAP[cardTitle.toLowerCase()];
 }

@@ -16,18 +16,18 @@ export default new class ItemHumanAssociator {
      * Remove all associations for selected card item
      */
     public removeAllForCardItem(cardItem: ICardItem) {
-        const associationKey = this.getAssociationKey(cardItem)
+        const associationKey = this.getAssociationKey(cardItem);
         this.associations = this.associations.filter(
-            association => association[associationKey] !== cardItem.id
+            association => association[associationKey] !== cardItem.id,
         );
     }
 
     public removeAssociation(targetItem: ICardItem, selectedItem: ICardItem) {
-        const targetKey = this.getAssociationKey(targetItem)
-        const selectedItemKey = this.getAssociationKey(selectedItem)
+        const targetKey = this.getAssociationKey(targetItem);
+        const selectedItemKey = this.getAssociationKey(selectedItem);
         this.associations = this.associations.filter(
             association => association[selectedItemKey] !== selectedItem.id ||
-                association[targetKey] !== targetItem.id
+                association[targetKey] !== targetItem.id,
         );
     }
 
@@ -38,4 +38,4 @@ export default new class ItemHumanAssociator {
     private getAssociationKey(cardItem: ICardItem): string {
         return cardItem.cardTitle.toLowerCase() === 'items' ? 'itemId' : 'peopleId';
     }
-}
+};

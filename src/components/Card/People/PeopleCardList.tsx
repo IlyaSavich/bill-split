@@ -14,7 +14,7 @@ export default class PeopleCardList extends CardList<IProps> {
         }).map(
             (cardItem: ICardItem) => {
                 const newCardItem: ICardItem = { ...cardItem, price: this.props.splittedBill[cardItem.id] };
-                const isSelected = !!this.props.selectedCardItem && this.props.selectedCardItem.id === cardItem.id
+                const isSelected = !!this.props.selectedCardItem && this.props.selectedCardItem.id === cardItem.id;
                 return <CardTextRow
                     key={cardItem.id}
                     cardItem={newCardItem}
@@ -25,6 +25,6 @@ export default class PeopleCardList extends CardList<IProps> {
                     onSelectedCardItem={this.props.onSelectedCardItem}
                 />;
             },
-        )
+        );
     }
 }

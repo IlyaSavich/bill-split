@@ -65,7 +65,7 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
                     onRemovingAssociation={this.props.onRemovingAssociation}
                     onSelectedCardItem={this.props.onSelectedCardItem}
                 />,
-        )
+        );
     }
 
     protected onRemoveRow = (removedCardItem: ICardItem) => {

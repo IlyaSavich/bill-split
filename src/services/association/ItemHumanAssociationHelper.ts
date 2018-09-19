@@ -4,12 +4,12 @@ import associator, { IItemHumanAssociation } from 'src/services/association/Item
 import { IBillingItem } from 'src/services/Billing';
 
 interface IAssociationAccessor {
-    associationKey: string,
-    defaultValue: ISelectedIds,
+    associationKey: string;
+    defaultValue: ISelectedIds;
     result: {
-        arrayKey: string,
-        associationKey: string,
-    },
+        arrayKey: string;
+        associationKey: string;
+    };
 }
 
 interface ISelectedIds {

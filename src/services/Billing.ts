@@ -84,4 +84,4 @@ export default new class Billing {
 
         return splittedBill;
     }
-}
+};

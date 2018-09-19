@@ -2,7 +2,7 @@ import * as React from 'react';
 import Card, { IProps as BaseIProps } from 'src/components/Card/Card';
 import PeopleCardList from 'src/components/Card/People/PeopleCardList';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteForever from '@material-ui/icons/DeleteForeverOutlined'
+import DeleteForever from '@material-ui/icons/DeleteForeverOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
 
@@ -14,10 +14,10 @@ export default class PeopleCard extends Card<IProps> {
     public render() {
         return (
             <div className="card people-card" key={this.props.title}>
-                <div className='header'>
-                    <Grid container={true} justify="space-between" alignItems='baseline' direction='row'>
+                <div className="header">
+                    <Grid container={true} justify="space-between" alignItems="baseline" direction="row">
                         <Grid item={true}>
-                            <IconButton type='button' onClick={this.removeAll}>
+                            <IconButton type="button" onClick={this.removeAll}>
                                 <DeleteForever />
                             </IconButton>
                         </Grid>

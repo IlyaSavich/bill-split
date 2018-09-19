@@ -24,11 +24,11 @@ class App extends React.Component<{}, IState> {
         const ids = associationHelper.getSelectedIdsFromAssociations(this.state.selectedCardItem);
 
         return (
-            <div className='App' onClick={this.onClickOutSide}>
-                <Grid className='margin-top-50'>
-                    <Grid container={true} justify="center" spacing={40}>
+            <div className="App" onClick={this.onClickOutSide}>
+                <Grid className="margin-top-50">
+                    <Grid container={true} item={true} justify="center" xs={12} spacing={40}>
                         <Grid item={true}>
-                            <Card title='ITEMS'
+                            <Card title="ITEMS"
                                 ids={ids.itemIds}
                                 onSelectedCardItem={this.onSelectedCardItem}
                                 onAddingAssociation={this.onAddingAssociation}
@@ -40,7 +40,7 @@ class App extends React.Component<{}, IState> {
                         </Grid>
                         <Grid item={true}>
                             <PeopleCard
-                                title='PEOPLE'
+                                title="PEOPLE"
                                 ids={ids.peopleIds}
                                 onSelectedCardItem={this.onSelectedCardItem}
                                 onAddingAssociation={this.onAddingAssociation}
@@ -64,12 +64,12 @@ class App extends React.Component<{}, IState> {
     };
 
     private onRemovingAssociation = (cardItem: ICardItem) => {
-        if (this.state.selectedCardItem) {
-            const id = 'id'
-            const splittedBill: Record<number, number> = this.state.selectedCardItem![id] === cardItem.id
+        const selectedCardItem = this.state.selectedCardItem as ICardItem | null;
+        if (selectedCardItem) {
+            const splittedBill: Record<number, number> = selectedCardItem.id === cardItem.id
                 ? billing.removeAllAssociations(cardItem)
-                : billing.removeAssociation(cardItem, this.state.selectedCardItem!)
-            this.setState({ splittedBill })
+                : billing.removeAssociation(cardItem, selectedCardItem);
+            this.setState({ splittedBill });
         }
     }
 
