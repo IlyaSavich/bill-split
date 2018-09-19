@@ -14,13 +14,10 @@ interface IProps {
     onRemove: (cardItem: ICardItem) => void;
     onAddingAssociation: (itemId: number, peopleId: number) => void;
     onRemovingAssociation: (targerCardItem: ICardItem) => void;
-    onSelectedCardItem: (cardItem: ICardItem, cardItemRef: HTMLLIElement | null) => void;
+    onSelectedCardItem: (cardItem: ICardItem) => void;
 }
 
 class CardTextRow extends React.Component<IProps> {
-
-    private nodeRef: HTMLLIElement | null = null;
-
     public render() {
         const className = cx('list-group-item', { 'color-blue': this.props.isSelected, 'btn-outline-light': !this.props.isSelected });
         return (
@@ -32,7 +29,6 @@ class CardTextRow extends React.Component<IProps> {
                 onDragEnd={this.onDragEnd}
                 onClick={this.onClick}
                 onDrop={this.onDrop}
-                ref={this.setItemReference}
                 data-selectable={true}
             >
                 <Grid container={true} direction="row">
@@ -72,7 +68,7 @@ class CardTextRow extends React.Component<IProps> {
     };
 
     private onClick = () => {
-        this.props.onSelectedCardItem(this.props.cardItem, this.nodeRef);
+        this.props.onSelectedCardItem(this.props.cardItem);
     };
 
     private onDrop = (event: React.DragEvent<HTMLLIElement>) => {
@@ -102,10 +98,6 @@ class CardTextRow extends React.Component<IProps> {
     private onRemove = (event: any) => {
         event.stopPropagation();
         this.props.onRemove(this.props.cardItem);
-    };
-
-    private setItemReference = (node: HTMLLIElement | null) => {
-        this.nodeRef = node;
     };
 }
 

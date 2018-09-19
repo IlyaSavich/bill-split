@@ -8,14 +8,12 @@ import billing from 'src/services/Billing';
 import Grid from '@material-ui/core/Grid';
 
 interface IState {
-    cardItemRef: HTMLLIElement | null;
     selectedCardItem: ICardItem | null;
     splittedBill: Record<number, number>;
 }
 
 class App extends React.Component<{}, IState> {
     public state = {
-        cardItemRef: null,
         selectedCardItem: null,
         splittedBill: {},
     };
@@ -60,7 +58,7 @@ class App extends React.Component<{}, IState> {
     private onAddingAssociation = (itemId: number, peopleId: number) => {
         const splittedBill = billing.addAssociation(itemId, peopleId);
 
-        this.setState({ ...this.state, splittedBill });
+        this.setState({ splittedBill });
     };
 
     private onRemovingAssociation = (cardItem: ICardItem) => {
@@ -73,40 +71,39 @@ class App extends React.Component<{}, IState> {
         }
     }
 
-    private onSelectedCardItem = (selectedCardItem: ICardItem, cardItemRef: HTMLLIElement | null) => {
-        this.setState({ ...this.state, selectedCardItem, cardItemRef });
+    private onSelectedCardItem = (selectedCardItem: ICardItem) => {
+        this.setState({ selectedCardItem });
     };
 
     private onRemoveItem = (cardItem: ICardItem) => {
         const splittedBill = billing.removeItem(cardItem);
 
-        this.setState({ ...this.state, splittedBill });
+        this.setState({ splittedBill });
     };
 
     private onRemoveHuman = (cardItem: ICardItem) => {
         const splittedBill = billing.removeHuman(cardItem);
 
-        this.setState({ ...this.state, splittedBill });
+        this.setState({ splittedBill });
     };
 
     private onClickOutSide = (event: any) => {
-        const cardItemRef = this.state.cardItemRef as HTMLLIElement | null;
         const isSelectable = event.target.dataset.selectable;
-        if (cardItemRef && !isSelectable) {
-            this.setState({ ...this.state, selectedCardItem: null, cardItemRef: null });
+        if (!isSelectable) {
+            this.setState({ selectedCardItem: null });
         }
     };
 
     private onAddItem = (cardItem: ICardItem) => {
         const splittedBill = billing.addItem({ id: cardItem.id, price: cardItem.price });
 
-        this.setState({ ...this.state, splittedBill });
+        this.setState({ splittedBill });
     };
 
     private onAddHuman = (cardItem: ICardItem) => {
         const splittedBill = billing.addHuman({ id: cardItem.id, money: cardItem.price });
 
-        this.setState({ ...this.state, splittedBill });
+        this.setState({ splittedBill });
     };
 }
 

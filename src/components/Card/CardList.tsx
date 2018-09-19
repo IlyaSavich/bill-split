@@ -16,7 +16,7 @@ export interface IProps {
     onAddingAssociation: (itemId: number, peopleId: number) => void;
     onRemovingAssociation: (targetCardItem: ICardItem) => void;
     onRemoveItem: (cardItem: ICardItem) => void;
-    onSelectedCardItem: (cardItem: ICardItem, cardItemRef: HTMLLIElement | null) => void;
+    onSelectedCardItem: (cardItem: ICardItem) => void;
 }
 
 interface IState {
