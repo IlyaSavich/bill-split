@@ -12,9 +12,8 @@ export default class PeopleCardList extends CardList<IProps> {
         }).map(
             (cardItem: ICardItem) => {
                 const newCardItem: ICardItem = { ...cardItem, price: this.props.splittedBill[cardItem.id] };
-                const editCardItem = this.state.editCardItem as ICardItem | null;
-                if (this.canAddEditRow(editCardItem, cardItem)) {
-                    return this.getEditCardRow(editCardItem!);
+                if (this.canAddEditRow(this.state.editCardItem, cardItem)) {
+                    return this.getEditCardRow(this.state.editCardItem!);
                 }
                 return this.getCardRow(newCardItem);
             },

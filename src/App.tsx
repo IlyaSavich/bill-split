@@ -97,8 +97,9 @@ class App extends React.Component<{}, IState> {
     };
 
     private handleSelectedCardItemRemoval = (removedCardItem: ICardItem): ICardItem | null => {
-        const selectedCardItem = this.state.selectedCardItem as ICardItem | null;
-        return selectedCardItem && selectedCardItem.id === removedCardItem.id ? null : selectedCardItem;
+        return this.state.selectedCardItem
+            && this.state.selectedCardItem.id === removedCardItem.id
+            ? null : this.state.selectedCardItem;
     }
 
     private onClickOutSide = (event: any) => {

@@ -25,7 +25,7 @@ interface IState {
 }
 
 class CardList<P extends IProps> extends React.Component<P, IState> {
-    public state = {
+    public state: IState = {
         editCardItem: null,
     };
 
@@ -48,9 +48,8 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
         return this.cardItems.filter((cardItem: ICardItem) => {
             return this.props.ids === null ? true : this.props.ids.includes(cardItem.id);
         }).map(cardItem => {
-            const editCardItem = this.state.editCardItem as ICardItem | null;
-            if (this.canAddEditRow(editCardItem, cardItem)) {
-                return this.getEditCardRow(editCardItem!);
+            if (this.canAddEditRow(this.state.editCardItem, cardItem)) {
+                return this.getEditCardRow(this.state.editCardItem!);
             }
 
             return this.getCardRow(cardItem);
