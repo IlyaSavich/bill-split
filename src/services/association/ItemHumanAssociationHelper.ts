@@ -28,7 +28,7 @@ const ASSOCIATION_ACCESSOR_MAP = {
             arrayKey: 'peopleIds',
             associationKey: 'peopleId',
         },
-    },
+    } as IAssociationAccessor,
     people: {
         associationKey: 'peopleId',
         defaultValue: {
@@ -39,7 +39,7 @@ const ASSOCIATION_ACCESSOR_MAP = {
             arrayKey: 'itemIds',
             associationKey: 'itemId',
         },
-    },
+    } as IAssociationAccessor,
 };
 
 /**
@@ -50,7 +50,7 @@ export function getSelectedIdsFromAssociations(cardItem: ICardItem | null): ISel
         return { itemIds: null, peopleIds: null };
     }
 
-    const propertyAccessor = ASSOCIATION_ACCESSOR_MAP[cardItem.cardTitle.toLowerCase()] as IAssociationAccessor;
+    const propertyAccessor = ASSOCIATION_ACCESSOR_MAP[cardItem.cardTitle.toLowerCase()];
     const associations = associator.getAll();
     return associations.reduce((carry: ISelectedIds, association: IItemHumanAssociation) => {
         const checkId = association[propertyAccessor.associationKey];

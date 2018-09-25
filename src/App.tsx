@@ -13,7 +13,7 @@ interface IState {
 }
 
 class App extends React.Component<{}, IState> {
-    public state = {
+    public state: IState = {
         selectedCardItem: null,
         splittedBill: {},
     };
@@ -62,7 +62,8 @@ class App extends React.Component<{}, IState> {
     };
 
     private onRemovingAssociation = (cardItem: ICardItem) => {
-        const selectedCardItem = this.state.selectedCardItem as ICardItem | null;
+        const selectedCardItem = this.state.selectedCardItem;
+
         if (selectedCardItem) {
             const splittedBill: Record<number, number> = selectedCardItem.id === cardItem.id
                 ? billing.removeAllAssociations(cardItem)

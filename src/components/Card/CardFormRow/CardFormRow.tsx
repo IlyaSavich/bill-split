@@ -7,6 +7,7 @@ import Close from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import * as formRowHelper from 'components/Card/CardFormRow/CardFormRowHelper';
+
 interface IProps {
     cardTitle: string;
     onCreated: (card: ICardItem) => void;
