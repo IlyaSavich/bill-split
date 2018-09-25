@@ -10,7 +10,8 @@ import * as formRowHelper from 'components/Card/CardFormRow/CardFormRowHelper';
 
 interface IProps {
     cardTitle: string;
-    onCreated: (card: ICardItem) => void;
+    editItem?: ICardItem;
+    onSubmit: (card: ICardItem) => void;
     onCancel: () => void;
 }
 
@@ -19,10 +20,20 @@ class CardFormRow extends React.Component<IProps> {
         const formProperties = formRowHelper.getFormProperties(this.props.cardTitle);
         return (
             <li className="list-group-item">
-                <form name="create-list-item" onSubmit={this.onCreated}>
+                <form name="create-list-item" onSubmit={this.onSubmit}>
                     <MuiThemeProvider theme={formProperties.theme}>
-                        <Input autoFocus={true} name="title" placeholder={formProperties.placeholder} required={true} type="text" />
-                        <Input name="price" placeholder={formProperties.placeholder2} required={true} type="number" />
+                        <Input
+                            defaultValue={this.props.editItem ? this.props.editItem.title : ''}
+                            autoFocus={true} name="title"
+                            placeholder={formProperties.placeholder}
+                            required={true}
+                            type="text" />
+                        <Input
+                            defaultValue={this.props.editItem ? this.props.editItem.price : ''}
+                            name="price"
+                            placeholder={formProperties.placeholder2}
+                            required={true}
+                            type="number" />
                         <div>
                             <IconButton type="button" onClick={this.props.onCancel}>
                                 <Close />
@@ -37,13 +48,13 @@ class CardFormRow extends React.Component<IProps> {
         );
     }
 
-    private onCreated = (event: any) => {
+    private onSubmit = (event: any) => {
         event.preventDefault();
 
         const data = new FormData(event.target);
-        this.props.onCreated({
+        this.props.onSubmit({
             cardTitle: this.props.cardTitle.toLowerCase(),
-            id: CardItemIdGenerator.getId(),
+            id: this.props.editItem ? this.props.editItem.id : CardItemIdGenerator.getId(),
             price: Number(data.get('price')),
             title: String(data.get('title')),
         });

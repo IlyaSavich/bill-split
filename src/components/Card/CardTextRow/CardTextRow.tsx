@@ -15,6 +15,7 @@ interface IProps {
     onAddingAssociation: (itemId: number, peopleId: number) => void;
     onRemovingAssociation: (targerCardItem: ICardItem) => void;
     onSelectedCardItem: (cardItem: ICardItem) => void;
+    onClickEdit: (editCardItem: ICardItem) => void;
 }
 
 class CardTextRow extends React.Component<IProps> {
@@ -31,22 +32,22 @@ class CardTextRow extends React.Component<IProps> {
                 onDrop={this.onDrop}
                 data-selectable={true}
             >
-                <Grid container={true} direction="row">
-                    <Grid container={true} item={true} xs={9} direction="row" justify="space-around" alignItems="center">
-                        <Grid item={true} zeroMinWidth={true} xs={7} >
+                <Grid container={true} direction="row" data-selectable={true}>
+                    <Grid container={true} item={true} xs={9} direction="row" justify="space-around" alignItems="center" data-selectable={true}>
+                        <Grid item={true} zeroMinWidth={true} xs={7} data-selectable={true}>
                             <Typography data-selectable={true} variant="body1" noWrap={true}>{this.props.cardItem.title}</Typography>
                         </Grid>
-                        <Grid item={true} xs={2}>
+                        <Grid item={true} xs={2} data-selectable={true}>
                             <Typography data-selectable={true} variant="body1" noWrap={true}>${this.props.cardItem.price}</Typography>
                         </Grid>
                     </Grid>
-                    <Grid container={true} item={true} xs={3} direction="row" justify="flex-end" spacing={8}>
-                        <Grid item={true}>
+                    <Grid container={true} item={true} xs={3} direction="row" justify="flex-end" spacing={8} data-selectable={true}>
+                        <Grid item={true} data-selectable={true}>
                             <IconButton className="icon-24">
-                                <EditOutlined />
+                                <EditOutlined onClick={this.onClickEdit} />
                             </IconButton>
                         </Grid>
-                        <Grid item={true}>
+                        <Grid item={true} data-selectable={true}>
                             <IconButton className="icon-24">
                                 <DeleteOutlined onClick={this.onRemove} />
                             </IconButton>
@@ -98,7 +99,12 @@ class CardTextRow extends React.Component<IProps> {
     private onRemove = (event: any) => {
         event.stopPropagation();
         this.props.onRemove(this.props.cardItem);
-    };
+    }
+
+    private onClickEdit = (event: any) => {
+        event.stopPropagation();
+        this.props.onClickEdit(this.props.cardItem);
+    }
 }
 
 export default CardTextRow;

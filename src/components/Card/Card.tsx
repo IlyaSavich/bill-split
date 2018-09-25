@@ -13,8 +13,9 @@ export interface IProps {
     selectedCardItem: ICardItem | null;
     onAddingAssociation: (itemId: number, peopleId: number) => void;
     onRemovingAssociation: (targetCardItem: ICardItem) => void;
-    onCreated: (cardItem: ICardItem) => void;
+    onSaved: (cardItem: ICardItem) => void;
     onRemoveItem: (cardItem: ICardItem) => void;
+    onRemoveAllItems: () => void;
     onSelectedCardItem: (cardItem: ICardItem) => void;
 }
 
@@ -53,7 +54,8 @@ class Card<P extends IProps> extends React.Component<P, IState> {
                     <CardList
                         isCreating={this.state.isCreating}
                         isClearing={this.state.isClearing}
-                        onCreated={this.onCreated}
+                        stopCreating={this.stopCreating}
+                        onSaved={this.onItemSaved}
                         onCancelCreating={this.onCancelCreating}
                         afterClearing={this.afterClearing}
                         onAddingAssociation={this.props.onAddingAssociation}
@@ -70,25 +72,30 @@ class Card<P extends IProps> extends React.Component<P, IState> {
     }
 
     protected removeAll = () => {
-        this.setState({ ...this.state, isCreating: false, isClearing: true });
+        this.setState({ isCreating: false, isClearing: true });
+        this.props.onRemoveAllItems();
     };
 
     protected afterClearing = () => {
-        this.setState({ ...this.state, isClearing: false });
+        this.setState({ isClearing: false });
     };
 
     protected createItem = () => {
-        this.setState({ ...this.state, isCreating: true });
+        this.setState({ isCreating: true });
     };
 
-    protected onCreated = (cardItem: ICardItem) => {
-        this.setState({ ...this.state, isCreating: false });
-        this.props.onCreated(cardItem);
+    protected onItemSaved = (cardItem: ICardItem) => {
+        this.setState({ isCreating: false });
+        this.props.onSaved(cardItem);
     };
 
     protected onCancelCreating = () => {
         this.setState({ isCreating: false });
     };
+
+    protected stopCreating = () => {
+        this.setState({ isCreating: false });
+    }
 }
 
 export default Card;

@@ -32,7 +32,8 @@ class App extends React.Component<{}, IState> {
                                 onAddingAssociation={this.onAddingAssociation}
                                 onRemovingAssociation={this.onRemovingAssociation}
                                 onRemoveItem={this.onRemoveItem}
-                                onCreated={this.onAddItem}
+                                onRemoveAllItems={this.onRemoveAllItems}
+                                onSaved={this.onSaveItem}
                                 selectedCardItem={this.state.selectedCardItem}
                             />
                         </Grid>
@@ -44,7 +45,8 @@ class App extends React.Component<{}, IState> {
                                 onAddingAssociation={this.onAddingAssociation}
                                 onRemovingAssociation={this.onRemovingAssociation}
                                 onRemoveItem={this.onRemoveHuman}
-                                onCreated={this.onAddHuman}
+                                onRemoveAllItems={this.onRemoveAllItems}
+                                onSaved={this.onSaveHuman}
                                 splittedBill={this.state.splittedBill}
                                 selectedCardItem={this.state.selectedCardItem}
                             />
@@ -66,7 +68,7 @@ class App extends React.Component<{}, IState> {
 
         if (selectedCardItem) {
             const splittedBill: Record<number, number> = selectedCardItem.id === cardItem.id
-                ? billing.removeAllAssociations(cardItem)
+                ? billing.removeAllAssociationsForCardItem(cardItem)
                 : billing.removeAssociation(cardItem, selectedCardItem);
             this.setState({ splittedBill });
         }
@@ -79,14 +81,25 @@ class App extends React.Component<{}, IState> {
     private onRemoveItem = (cardItem: ICardItem) => {
         const splittedBill = billing.removeItem(cardItem);
 
-        this.setState({ splittedBill });
+        this.setState({ splittedBill, selectedCardItem: this.handleSelectedCardItemRemoval(cardItem) });
     };
+
+    private onRemoveAllItems = () => {
+        const splittedBill = billing.removeAllAssociations();
+
+        this.setState({ splittedBill, selectedCardItem: null });
+    }
 
     private onRemoveHuman = (cardItem: ICardItem) => {
         const splittedBill = billing.removeHuman(cardItem);
 
-        this.setState({ splittedBill });
+        this.setState({ splittedBill, selectedCardItem: this.handleSelectedCardItemRemoval(cardItem) });
     };
+
+    private handleSelectedCardItemRemoval = (removedCardItem: ICardItem): ICardItem | null => {
+        const selectedCardItem = this.state.selectedCardItem as ICardItem | null;
+        return selectedCardItem && selectedCardItem.id === removedCardItem.id ? null : selectedCardItem;
+    }
 
     private onClickOutSide = (event: any) => {
         const isSelectable = event.target.dataset.selectable;
@@ -95,14 +108,14 @@ class App extends React.Component<{}, IState> {
         }
     };
 
-    private onAddItem = (cardItem: ICardItem) => {
-        const splittedBill = billing.addItem({ id: cardItem.id, price: cardItem.price });
+    private onSaveItem = (cardItem: ICardItem) => {
+        const splittedBill = billing.putItem({ id: cardItem.id, price: cardItem.price });
 
         this.setState({ splittedBill });
     };
 
-    private onAddHuman = (cardItem: ICardItem) => {
-        const splittedBill = billing.addHuman({ id: cardItem.id, money: cardItem.price });
+    private onSaveHuman = (cardItem: ICardItem) => {
+        const splittedBill = billing.putHuman({ id: cardItem.id, money: cardItem.price });
 
         this.setState({ splittedBill });
     };

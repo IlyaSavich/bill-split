@@ -1,6 +1,4 @@
-import * as React from 'react';
 import CardList, { IProps as BaseIProps } from 'components/Card/CardList';
-import CardTextRow from 'components/Card/CardTextRow/CardTextRow';
 import { ICardItem } from 'models';
 
 interface IProps extends BaseIProps {
@@ -14,16 +12,11 @@ export default class PeopleCardList extends CardList<IProps> {
         }).map(
             (cardItem: ICardItem) => {
                 const newCardItem: ICardItem = { ...cardItem, price: this.props.splittedBill[cardItem.id] };
-                const isSelected = !!this.props.selectedCardItem && this.props.selectedCardItem.id === cardItem.id;
-                return <CardTextRow
-                    key={cardItem.id}
-                    cardItem={newCardItem}
-                    isSelected={isSelected}
-                    onRemove={this.onRemoveRow}
-                    onAddingAssociation={this.props.onAddingAssociation}
-                    onRemovingAssociation={this.props.onRemovingAssociation}
-                    onSelectedCardItem={this.props.onSelectedCardItem}
-                />;
+                const editCardItem = this.state.editCardItem as ICardItem | null;
+                if (this.canAddEditRow(editCardItem, cardItem)) {
+                    return this.getEditCardRow(editCardItem!);
+                }
+                return this.getCardRow(newCardItem);
             },
         );
     }

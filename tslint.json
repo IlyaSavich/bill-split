@@ -140,6 +140,7 @@
         "check-type-operator",
         "check-rest-spread"
       ]
-    }
+    },
+    "no-console": false
   }
 }

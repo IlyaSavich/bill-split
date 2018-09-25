@@ -10,38 +10,30 @@ export interface IProps {
     isCreating: boolean;
     isClearing: boolean;
     selectedCardItem: ICardItem | null;
-    onCreated: (cardItem: ICardItem) => void;
+    onSaved: (cardItem: ICardItem) => void;
     onCancelCreating: () => void;
     afterClearing: () => void;
     onAddingAssociation: (itemId: number, peopleId: number) => void;
     onRemovingAssociation: (targetCardItem: ICardItem) => void;
     onRemoveItem: (cardItem: ICardItem) => void;
     onSelectedCardItem: (cardItem: ICardItem) => void;
+    stopCreating: () => void;
 }
 
 interface IState {
-    isCreating: boolean;
-    isClearing: boolean;
+    editCardItem: ICardItem | null;
 }
 
 class CardList<P extends IProps> extends React.Component<P, IState> {
     public state = {
-        isClearing: false,
-        isCreating: false,
+        editCardItem: null,
     };
 
     protected cardItems: ICardItem[] = [];
 
-    public componentWillReceiveProps(nextProps: IProps): void {
-        this.setState({ ...this.state, isCreating: nextProps.isCreating });
-
-        if (nextProps.isClearing) {
-            this.cardItems = [];
-        }
-    }
-
     public componentDidUpdate(): void {
         if (this.props.isClearing) {
+            this.cardItems = [];
             this.props.afterClearing();
         }
     }
@@ -55,31 +47,59 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
     protected getCardRows(): JSX.Element[] {
         return this.cardItems.filter((cardItem: ICardItem) => {
             return this.props.ids === null ? true : this.props.ids.includes(cardItem.id);
-        }).map(
-            (cardItem: ICardItem) =>
-                <CardTextRow key={cardItem.id}
-                    cardItem={cardItem}
-                    isSelected={_.isEqual(this.props.selectedCardItem, cardItem)}
-                    onRemove={this.onRemoveRow}
-                    onAddingAssociation={this.props.onAddingAssociation}
-                    onRemovingAssociation={this.props.onRemovingAssociation}
-                    onSelectedCardItem={this.props.onSelectedCardItem}
-                />,
-        );
+        }).map(cardItem => {
+            const editCardItem = this.state.editCardItem as ICardItem | null;
+            if (this.canAddEditRow(editCardItem, cardItem)) {
+                return this.getEditCardRow(editCardItem!);
+            }
+
+            return this.getCardRow(cardItem);
+        });
+    }
+
+    protected canAddEditRow(editCardItem: ICardItem | null, cardItem: ICardItem): boolean {
+        return !!editCardItem && editCardItem.id === cardItem.id && !this.props.isCreating;
     }
 
     protected onRemoveRow = (removedCardItem: ICardItem) => {
         _.remove(this.cardItems, (cardItem: ICardItem) => cardItem.id === removedCardItem.id);
         this.props.onRemoveItem(removedCardItem);
+    }
 
-        this.forceUpdate();
-    };
+    protected onClickEdit = (editCardItem: ICardItem) => {
+        this.setState({ editCardItem });
+        this.props.stopCreating();
+    }
+
+    protected getCardRow = (cardItem: ICardItem): JSX.Element => {
+        return <CardTextRow
+            key={cardItem.id}
+            cardItem={cardItem}
+            isSelected={!!this.props.selectedCardItem && this.props.selectedCardItem.id === cardItem.id}
+            onRemove={this.onRemoveRow}
+            onAddingAssociation={this.props.onAddingAssociation}
+            onRemovingAssociation={this.props.onRemovingAssociation}
+            onSelectedCardItem={this.props.onSelectedCardItem}
+            onClickEdit={this.onClickEdit}
+        />;
+    }
+
+    protected getEditCardRow = (editCardItem: ICardItem): JSX.Element => {
+        return <CardFormRow
+            key={editCardItem.id}
+            onSubmit={this.onSaveEditing}
+            onCancel={this.onCancelEditing}
+            cardTitle={this.props.cardTitle}
+            editItem={editCardItem}
+        />;
+    }
 
     private appendCardFormRow(cardComponents: JSX.Element[]): JSX.Element[] {
-        if (this.state.isCreating) {
+        if (this.props.isCreating) {
             cardComponents.push(
-                <CardFormRow key="card-form"
-                    onCreated={this.onCreated}
+                <CardFormRow
+                    key="card-form"
+                    onSubmit={this.onCreated}
                     onCancel={this.onCancelCreating}
                     cardTitle={this.props.cardTitle} />,
             );
@@ -90,15 +110,27 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
 
     private onCreated = (cardItem: ICardItem) => {
         this.cardItems.push(cardItem);
-
-        this.setState({ ...this.state, isCreating: false });
-        this.props.onCreated(cardItem);
+        this.props.onSaved(cardItem);
+        this.setState({ editCardItem: null });
     };
 
     private onCancelCreating = () => {
-        this.setState({ ...this.state, isCreating: false });
+        this.setState({ editCardItem: null });
         this.props.onCancelCreating();
     };
+
+    private onCancelEditing = () => {
+        this.setState({ editCardItem: null });
+    }
+
+    private onSaveEditing = (editCardItem: ICardItem) => {
+        this.cardItems = this.cardItems.map(cardItem => {
+            return cardItem.id === editCardItem.id ? editCardItem : cardItem;
+        });
+
+        this.props.onSaved(editCardItem);
+        this.setState({ editCardItem: null });
+    }
 }
 
 export default CardList;

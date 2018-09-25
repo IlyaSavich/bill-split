@@ -1,4 +1,5 @@
 import { ICardItem } from 'models';
+import * as _ from 'lodash';
 
 export interface IItemHumanAssociation {
     itemId: number;
@@ -9,7 +10,9 @@ export default new class ItemHumanAssociator {
     private associations: IItemHumanAssociation[] = [];
 
     public add(association: IItemHumanAssociation) {
-        this.associations.push(association);
+        if (!this.associations.some(current => _.isEqual(current, association))) {
+            this.associations.push(association);
+        }
     }
 
     /**
@@ -20,6 +23,10 @@ export default new class ItemHumanAssociator {
         this.associations = this.associations.filter(
             association => association[associationKey] !== cardItem.id,
         );
+    }
+
+    public removeAll() {
+        this.associations = [];
     }
 
     public removeAssociation(targetItem: ICardItem, selectedItem: ICardItem) {

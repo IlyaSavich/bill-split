@@ -17,7 +17,7 @@ export default new class Billing {
     private items: Record<number, IBillingItem> = {};
     private people: IBillingHuman[] = [];
 
-    public addItem(item: IBillingItem): Record<number, number> {
+    public putItem(item: IBillingItem): Record<number, number> {
         this.items[item.id] = item;
 
         return this.recalculate();
@@ -34,8 +34,9 @@ export default new class Billing {
         return this.recalculate();
     }
 
-    public addHuman(human: IBillingHuman): Record<number, number> {
-        this.people.push(human);
+    public putHuman(human: IBillingHuman): Record<number, number> {
+        const replaceIndex = this.people.findIndex(current => current.id === human.id);
+        replaceIndex === -1 ? this.people.push(human) : this.people[replaceIndex] = human;
 
         return this.recalculate();
     }
@@ -59,8 +60,14 @@ export default new class Billing {
         return this.recalculate();
     }
 
-    public removeAllAssociations(cardItem: ICardItem): Record<number, number> {
+    public removeAllAssociationsForCardItem(cardItem: ICardItem): Record<number, number> {
         associator.removeAllForCardItem(cardItem);
+
+        return this.recalculate();
+    }
+
+    public removeAllAssociations(): Record<number, number> {
+        associator.removeAll();
 
         return this.recalculate();
     }

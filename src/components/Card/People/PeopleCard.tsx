@@ -35,6 +35,7 @@ export default class PeopleCard extends Card<IProps> {
                     <PeopleCardList
                         isCreating={this.state.isCreating}
                         isClearing={this.state.isClearing}
+                        stopCreating={this.stopCreating}
                         onCancelCreating={this.onCancelCreating}
                         afterClearing={this.afterClearing}
                         onAddingAssociation={this.props.onAddingAssociation}
@@ -43,7 +44,7 @@ export default class PeopleCard extends Card<IProps> {
                         cardTitle={this.props.title}
                         ids={this.props.ids}
                         splittedBill={this.props.splittedBill}
-                        onCreated={this.onCreated}
+                        onSaved={this.onItemSaved}
                         onRemoveItem={this.props.onRemoveItem}
                         selectedCardItem={this.props.selectedCardItem}
                     />
