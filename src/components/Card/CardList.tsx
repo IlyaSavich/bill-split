@@ -43,18 +43,20 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
     }
 
     protected getCardRows(): JSX.Element[] {
-        return cardItemStorage.get(this.props.cardTitle).filter(cardItem => {
+        return cardItemStorage.getForCardTitle(this.props.cardTitle).filter(cardItem => {
             return this.props.ids === null ? true : this.props.ids.includes(cardItem.id);
         }).map(cardItem => {
-            if (this.canAddEditRow(this.state.editCardItem, cardItem)) {
-                return this.getEditCardRow(this.state.editCardItem!);
+            if (this.canAddEditRow(cardItem)) {
+                return this.getEditCardRow()!;
             }
 
             return this.getCardRow(cardItem);
         });
     }
 
-    protected canAddEditRow(editCardItem: ICardItem | null, cardItem: ICardItem): boolean {
+    protected canAddEditRow(cardItem: ICardItem): boolean {
+        const editCardItem = this.state.editCardItem;
+
         return !!editCardItem && editCardItem.id === cardItem.id && !this.props.isCreating;
     }
 
@@ -68,7 +70,7 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
         this.props.stopCreating();
     }
 
-    protected getCardRow = (cardItem: ICardItem): JSX.Element => {
+    protected getCardRow(cardItem: ICardItem): JSX.Element {
         return <CardTextRow
             key={cardItem.id}
             cardItem={cardItem}
@@ -81,7 +83,13 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
         />;
     }
 
-    protected getEditCardRow = (editCardItem: ICardItem): JSX.Element => {
+    private getEditCardRow(): JSX.Element | null {
+        const editCardItem = this.state.editCardItem;
+
+        if (!editCardItem) {
+            return null;
+        }
+
         return <CardFormRow
             key={editCardItem.id}
             onSubmit={this.onSaveEditing}
@@ -106,7 +114,7 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
     }
 
     private onCreated = (cardItem: ICardItem) => {
-        cardItemStorage.set(cardItem);
+        cardItemStorage.add(cardItem);
 
         this.props.onSaved();
         this.setState({ editCardItem: null });
@@ -122,7 +130,7 @@ class CardList<P extends IProps> extends React.Component<P, IState> {
     }
 
     private onSaveEditing = (editCardItem: ICardItem) => {
-        cardItemStorage.set(editCardItem);
+        cardItemStorage.update(editCardItem);
 
         this.props.onSaved();
         this.setState({ editCardItem: null });

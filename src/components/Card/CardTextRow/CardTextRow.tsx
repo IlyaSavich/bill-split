@@ -11,6 +11,7 @@ import associator, { IItemHumanAssociation } from 'services/association/ItemHuma
 
 interface IProps {
     cardItem: ICardItem;
+    bill?: number;
     isSelected: boolean;
     onRemove: (cardItem: ICardItem) => void;
     onAddingAssociation: () => void;
@@ -25,6 +26,8 @@ class CardTextRow extends React.Component<IProps> {
             'color-blue': this.props.isSelected,
             'btn-outline-light': !this.props.isSelected,
         });
+        const price = this.props.bill === undefined ? this.props.cardItem.price : this.props.bill;
+
         return (
             <li className={className}
                 draggable={true}
@@ -45,7 +48,7 @@ class CardTextRow extends React.Component<IProps> {
                         </Grid>
                         <Grid item={true} xs={2} data-selectable={true}>
                             <Typography data-selectable={true} variant="body1"
-                                        noWrap={true}>${this.props.cardItem.price}</Typography>
+                                        noWrap={true}>${price}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container={true} item={true} xs={3} direction="row" justify="flex-end" spacing={8}
@@ -87,10 +90,7 @@ class CardTextRow extends React.Component<IProps> {
             return;
         }
 
-        const isAssociationAdded = associator.add({
-            itemId: association.itemId,
-            peopleId: association.peopleId,
-        });
+        const isAssociationAdded = associator.add(association);
 
         if (isAssociationAdded) {
             this.props.onAddingAssociation();

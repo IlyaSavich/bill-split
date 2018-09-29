@@ -42,7 +42,7 @@ const ASSOCIATION_ACCESSOR_MAP: Record<CardTitle, IAssociationAccessor> = {
 };
 
 /**
- * Get selected ids from association. Used to get selected rows on click any list row
+ * Get selected ids from association. Used to getForCardTitle selected rows on click any list row
  */
 export function getSelectedIdsFromAssociations(cardItem: ICardItem | null): ISelectedIds {
     if (!cardItem) {

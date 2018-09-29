@@ -7,26 +7,26 @@ class CardItemStorage {
         [CardTitle.people]: [],
     };
 
-    /**
-     * Update or add new card item
-     */
-    public set(newCardItem: ICardItem) {
-        const cardTitle = newCardItem.cardTitle;
-        this.cardItemsGrouped[cardTitle] = this.cardItemsGrouped[cardTitle]
-            .filter(cardItem => cardItem.id !== newCardItem.id);
+    public add(cardItem: ICardItem) {
+        this.cardItemsGrouped[cardItem.cardTitle].push(cardItem);
+    }
 
-        this.cardItemsGrouped[cardTitle].push(newCardItem);
+    public update(newCardItem: ICardItem) {
+        const cardTitle = newCardItem.cardTitle;
+
+        this.cardItemsGrouped[cardTitle] = this.cardItemsGrouped[cardTitle]
+            .map(cardItem => cardItem.id === newCardItem.id ? newCardItem : cardItem);
     }
 
     public getItems() {
-        return this.get(CardTitle.items);
+        return this.getForCardTitle(CardTitle.items);
     }
 
     public getPeople() {
-        return this.get(CardTitle.people);
+        return this.getForCardTitle(CardTitle.people);
     }
 
-    public get(cardTitle: CardTitle): ICardItem[] {
+    public getForCardTitle(cardTitle: CardTitle): ICardItem[] {
         return _.cloneDeep(this.cardItemsGrouped[cardTitle]);
     }
 

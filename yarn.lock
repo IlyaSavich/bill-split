@@ -28,13 +28,13 @@
   version "7.0.0-beta.51"
   resolved "https://registry.yarnpkg.com/@babel/helper-function-name/-/helper-function-name-7.0.0-beta.51.tgz#21b4874a227cf99ecafcc30a90302da5a2640561"
   dependencies:
-    "@babel/helper-get-function-arity" "7.0.0-beta.51"
+    "@babel/helper-getForCardTitle-function-arity" "7.0.0-beta.51"
     "@babel/template" "7.0.0-beta.51"
     "@babel/types" "7.0.0-beta.51"
 
 "@babel/helper-get-function-arity@7.0.0-beta.51":
   version "7.0.0-beta.51"
-  resolved "https://registry.yarnpkg.com/@babel/helper-get-function-arity/-/helper-get-function-arity-7.0.0-beta.51.tgz#3281b2d045af95c172ce91b20825d85ea4676411"
+  resolved "https://registry.yarnpkg.com/@babel/helper-getForCardTitle-function-arity/-/helper-getForCardTitle-function-arity-7.0.0-beta.51.tgz#3281b2d045af95c172ce91b20825d85ea4676411"
   dependencies:
     "@babel/types" "7.0.0-beta.51"
 
@@ -531,7 +531,7 @@ babel-helper-function-name@^6.24.1:
   version "6.24.1"
   resolved "https://registry.yarnpkg.com/babel-helper-function-name/-/babel-helper-function-name-6.24.1.tgz#d3475b8c03ed98242a25b48351ab18399d3580a9"
   dependencies:
-    babel-helper-get-function-arity "^6.24.1"
+    babel-helper-getForCardTitle-function-arity "^6.24.1"
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
     babel-traverse "^6.24.1"
@@ -539,7 +539,7 @@ babel-helper-function-name@^6.24.1:
 
 babel-helper-get-function-arity@^6.24.1:
   version "6.24.1"
-  resolved "https://registry.yarnpkg.com/babel-helper-get-function-arity/-/babel-helper-get-function-arity-6.24.1.tgz#8f7782aa93407c41d3aa50908f89b031b1b6853d"
+  resolved "https://registry.yarnpkg.com/babel-helper-getForCardTitle-function-arity/-/babel-helper-getForCardTitle-function-arity-6.24.1.tgz#8f7782aa93407c41d3aa50908f89b031b1b6853d"
   dependencies:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
@@ -812,7 +812,7 @@ babel-plugin-transform-es2015-parameters@^6.23.0:
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-parameters/-/babel-plugin-transform-es2015-parameters-6.24.1.tgz#57ac351ab49caf14a97cd13b09f66fdf0a625f2b"
   dependencies:
     babel-helper-call-delegate "^6.24.1"
-    babel-helper-get-function-arity "^6.24.1"
+    babel-helper-getForCardTitle-function-arity "^6.24.1"
     babel-runtime "^6.22.0"
     babel-template "^6.24.1"
     babel-traverse "^6.24.1"
@@ -1336,7 +1336,7 @@ cache-base@^1.0.1:
   dependencies:
     collection-visit "^1.0.0"
     component-emitter "^1.2.1"
-    get-value "^2.0.6"
+    getForCardTitle-value "^2.0.6"
     has-value "^1.0.0"
     isobject "^3.0.1"
     set-value "^2.0.0"
@@ -2484,7 +2484,7 @@ execa@^0.7.0:
   resolved "https://registry.yarnpkg.com/execa/-/execa-0.7.0.tgz#944becd34cc41ee32a63a9faf27ad5a65fc59777"
   dependencies:
     cross-spawn "^5.0.1"
-    get-stream "^3.0.0"
+    getForCardTitle-stream "^3.0.0"
     is-stream "^1.1.0"
     npm-run-path "^2.0.0"
     p-finally "^1.0.0"
@@ -2531,7 +2531,7 @@ expect@^22.4.0:
   dependencies:
     ansi-styles "^3.2.0"
     jest-diff "^22.4.3"
-    jest-get-type "^22.4.3"
+    jest-getForCardTitle-type "^22.4.3"
     jest-matcher-utils "^22.4.3"
     jest-message-util "^22.4.3"
     jest-regex-util "^22.4.3"
@@ -2913,19 +2913,19 @@ gauge@~2.7.3:
 
 get-caller-file@^1.0.1:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
+  resolved "https://registry.yarnpkg.com/getForCardTitle-caller-file/-/getForCardTitle-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
 
 get-stdin@^4.0.1:
   version "4.0.1"
-  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
+  resolved "https://registry.yarnpkg.com/getForCardTitle-stdin/-/getForCardTitle-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
 
 get-stream@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
+  resolved "https://registry.yarnpkg.com/getForCardTitle-stream/-/getForCardTitle-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
 
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
-  resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
+  resolved "https://registry.yarnpkg.com/getForCardTitle-value/-/getForCardTitle-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
 
 getpass@^0.1.1:
   version "0.1.7"
@@ -3029,7 +3029,7 @@ got@^6.7.1:
   dependencies:
     create-error-class "^3.0.0"
     duplexer3 "^0.1.4"
-    get-stream "^3.0.0"
+    getForCardTitle-stream "^3.0.0"
     is-redirect "^1.0.0"
     is-retry-allowed "^1.0.0"
     is-stream "^1.0.0"
@@ -3104,7 +3104,7 @@ has-value@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/has-value/-/has-value-0.3.1.tgz#7b1f58bada62ca827ec0a2078025654845995e1f"
   dependencies:
-    get-value "^2.0.3"
+    getForCardTitle-value "^2.0.3"
     has-values "^0.1.4"
     isobject "^2.0.0"
 
@@ -3112,7 +3112,7 @@ has-value@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/has-value/-/has-value-1.0.0.tgz#18b281da585b1c5c51def24c930ed29a0be6b177"
   dependencies:
-    get-value "^2.0.6"
+    getForCardTitle-value "^2.0.6"
     has-values "^1.0.0"
     isobject "^3.0.0"
 
@@ -3824,7 +3824,7 @@ jest-cli@^22.4.2:
     jest-changed-files "^22.2.0"
     jest-config "^22.4.4"
     jest-environment-jsdom "^22.4.1"
-    jest-get-type "^22.1.0"
+    jest-getForCardTitle-type "^22.1.0"
     jest-haste-map "^22.4.2"
     jest-message-util "^22.4.0"
     jest-regex-util "^22.1.0"
@@ -3853,7 +3853,7 @@ jest-config@^22.0.1, jest-config@^22.4.4:
     glob "^7.1.1"
     jest-environment-jsdom "^22.4.1"
     jest-environment-node "^22.4.1"
-    jest-get-type "^22.1.0"
+    jest-getForCardTitle-type "^22.1.0"
     jest-jasmine2 "^22.4.4"
     jest-regex-util "^22.1.0"
     jest-resolve "^22.4.2"
@@ -3867,7 +3867,7 @@ jest-diff@^22.4.0, jest-diff@^22.4.3:
   dependencies:
     chalk "^2.0.1"
     diff "^3.2.0"
-    jest-get-type "^22.4.3"
+    jest-getForCardTitle-type "^22.4.3"
     pretty-format "^22.4.3"
 
 jest-docblock@^22.4.0, jest-docblock@^22.4.3:
@@ -3893,7 +3893,7 @@ jest-environment-node@^22.4.1:
 
 jest-get-type@^22.1.0, jest-get-type@^22.4.3:
   version "22.4.3"
-  resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-22.4.3.tgz#e3a8504d8479342dd4420236b322869f18900ce4"
+  resolved "https://registry.yarnpkg.com/jest-getForCardTitle-type/-/jest-getForCardTitle-type-22.4.3.tgz#e3a8504d8479342dd4420236b322869f18900ce4"
 
 jest-haste-map@^22.4.2:
   version "22.4.3"
@@ -3934,7 +3934,7 @@ jest-matcher-utils@^22.4.0, jest-matcher-utils@^22.4.3:
   resolved "https://registry.yarnpkg.com/jest-matcher-utils/-/jest-matcher-utils-22.4.3.tgz#4632fe428ebc73ebc194d3c7b65d37b161f710ff"
   dependencies:
     chalk "^2.0.1"
-    jest-get-type "^22.4.3"
+    jest-getForCardTitle-type "^22.4.3"
     pretty-format "^22.4.3"
 
 jest-message-util@^22.4.0, jest-message-util@^22.4.3:
@@ -4042,7 +4042,7 @@ jest-validate@^22.4.4:
   dependencies:
     chalk "^2.0.1"
     jest-config "^22.4.4"
-    jest-get-type "^22.1.0"
+    jest-getForCardTitle-type "^22.1.0"
     leven "^2.1.0"
     pretty-format "^22.4.0"
 
@@ -6655,7 +6655,7 @@ strip-indent@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/strip-indent/-/strip-indent-1.0.1.tgz#0c7962a6adefa7bbd4ac366460a638552ae1a0a2"
   dependencies:
-    get-stdin "^4.0.1"
+    getForCardTitle-stdin "^4.0.1"
 
 strip-json-comments@^2.0.1, strip-json-comments@~2.0.1:
   version "2.0.1"
@@ -7054,7 +7054,7 @@ union-value@^1.0.0:
   resolved "https://registry.yarnpkg.com/union-value/-/union-value-1.0.0.tgz#5c71c34cb5bad5dcebe3ea0cd08207ba5aa1aea4"
   dependencies:
     arr-union "^3.1.0"
-    get-value "^2.0.6"
+    getForCardTitle-value "^2.0.6"
     is-extendable "^0.1.1"
     set-value "^0.4.3"
 
@@ -7534,7 +7534,7 @@ yargs@^10.0.3:
     cliui "^4.0.0"
     decamelize "^1.1.1"
     find-up "^2.1.0"
-    get-caller-file "^1.0.1"
+    getForCardTitle-caller-file "^1.0.1"
     os-locale "^2.0.0"
     require-directory "^2.1.1"
     require-main-filename "^1.0.1"
@@ -7551,7 +7551,7 @@ yargs@^6.6.0:
     camelcase "^3.0.0"
     cliui "^3.2.0"
     decamelize "^1.1.1"
-    get-caller-file "^1.0.1"
+    getForCardTitle-caller-file "^1.0.1"
     os-locale "^1.4.0"
     read-pkg-up "^1.0.1"
     require-directory "^2.1.1"
@@ -7569,7 +7569,7 @@ yargs@^8.0.2:
     camelcase "^4.1.0"
     cliui "^3.2.0"
     decamelize "^1.1.1"
-    get-caller-file "^1.0.1"
+    getForCardTitle-caller-file "^1.0.1"
     os-locale "^2.0.0"
     read-pkg-up "^2.0.0"
     require-directory "^2.1.1"
