@@ -2,7 +2,7 @@ import * as React from 'react';
 import 'App.css';
 import Card from 'components/Card/Card';
 import PeopleCard from 'components/Card/People/PeopleCard';
-import { ICardItem } from 'models';
+import {CardTitle, ICardItem} from 'models';
 import * as associationHelper from 'services/association/ItemHumanAssociationHelper';
 import billing from 'services/Billing';
 import Grid from '@material-ui/core/Grid';
@@ -26,7 +26,7 @@ class App extends React.Component<{}, IState> {
                 <Grid className="margin-top-50">
                     <Grid container={true} item={true} justify="center" xs={12} spacing={40}>
                         <Grid item={true}>
-                            <Card title="ITEMS"
+                            <Card title={CardTitle.items}
                                 ids={ids.itemIds}
                                 onSelectedCardItem={this.onSelectedCardItem}
                                 onAddingAssociation={this.onAddingAssociation}
@@ -39,7 +39,7 @@ class App extends React.Component<{}, IState> {
                         </Grid>
                         <Grid item={true}>
                             <PeopleCard
-                                title="PEOPLE"
+                                title={CardTitle.people}
                                 ids={ids.peopleIds}
                                 onSelectedCardItem={this.onSelectedCardItem}
                                 onAddingAssociation={this.onAddingAssociation}

@@ -1,9 +1,10 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import purple from '@material-ui/core/colors/purple';
+import {CardTitle} from 'models';
 
 const FORM_PROPERTIES_MAP = {
-    items: {
+    [CardTitle.items]: {
         placeholder: 'Title',
         placeholder2: 'Price',
         theme:
@@ -13,7 +14,7 @@ const FORM_PROPERTIES_MAP = {
                 },
             }),
     },
-    people: {
+    [CardTitle.people]: {
         placeholder: 'Name',
         placeholder2: 'Budget',
         theme:
@@ -25,6 +26,6 @@ const FORM_PROPERTIES_MAP = {
     },
 };
 
-export function getFormProperties(cardTitle: string) {
-    return FORM_PROPERTIES_MAP[cardTitle.toLowerCase()];
+export function getFormProperties(cardTitle: CardTitle) {
+    return FORM_PROPERTIES_MAP[cardTitle];
 }

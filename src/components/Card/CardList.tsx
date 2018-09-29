@@ -2,10 +2,10 @@ import * as _ from 'lodash';
 import * as React from 'react';
 import CardFormRow from 'components/Card/CardFormRow/CardFormRow';
 import CardTextRow from 'components/Card/CardTextRow/CardTextRow';
-import { ICardItem } from 'models';
+import {CardTitle, ICardItem} from 'models';
 
 export interface IProps {
-    cardTitle: string;
+    cardTitle: CardTitle;
     ids: number[] | null;
     isCreating: boolean;
     isClearing: boolean;

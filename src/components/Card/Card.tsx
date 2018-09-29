@@ -1,14 +1,14 @@
 import 'components/Card/Card.css';
 import * as React from 'react';
 import CardList from 'components/Card/CardList';
-import { ICardItem } from 'models';
+import {CardTitle, ICardItem} from 'models';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteForever from '@material-ui/icons/DeleteForeverOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
 
 export interface IProps {
-    title: string;
+    title: CardTitle;
     ids: number[] | null;
     selectedCardItem: ICardItem | null;
     onAddingAssociation: (itemId: number, peopleId: number) => void;

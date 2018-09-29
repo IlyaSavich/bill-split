@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ICardItem } from 'models';
+import {CardTitle, ICardItem} from 'models';
 import CardItemIdGenerator from 'services/CardItemIdGenerator';
 import Input from '@material-ui/core/Input';
 import Done from '@material-ui/icons/Done';
@@ -9,7 +9,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import * as formRowHelper from 'components/Card/CardFormRow/CardFormRowHelper';
 
 interface IProps {
-    cardTitle: string;
+    cardTitle: CardTitle;
     editItem?: ICardItem;
     onSubmit: (card: ICardItem) => void;
     onCancel: () => void;
@@ -53,7 +53,7 @@ class CardFormRow extends React.Component<IProps> {
 
         const data = new FormData(event.target);
         this.props.onSubmit({
-            cardTitle: this.props.cardTitle.toLowerCase(),
+            cardTitle: this.props.cardTitle,
             id: this.props.editItem ? this.props.editItem.id : CardItemIdGenerator.getId(),
             price: Number(data.get('price')),
             title: String(data.get('title')),
