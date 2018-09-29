@@ -6,14 +6,15 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteForever from '@material-ui/icons/DeleteForeverOutlined';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from '@material-ui/core/Grid';
+import associator from 'services/association/ItemHumanAssociator';
 
 export interface IProps {
     title: CardTitle;
     ids: number[] | null;
     selectedCardItem: ICardItem | null;
-    onAddingAssociation: (itemId: number, peopleId: number) => void;
+    onAddingAssociation: () => void;
     onRemovingAssociation: (targetCardItem: ICardItem) => void;
-    onSaved: (cardItem: ICardItem) => void;
+    onSaved: () => void;
     onRemoveItem: (cardItem: ICardItem) => void;
     onRemoveAllItems: () => void;
     onSelectedCardItem: (cardItem: ICardItem) => void;
@@ -41,7 +42,7 @@ class Card<P extends IProps> extends React.Component<P, IState> {
                             </IconButton>
                         </Grid>
                         <Grid item={true}>
-                            <span>{this.props.title}</span>
+                            <span>{this.props.title.toUpperCase()}</span>
                         </Grid>
                         <Grid item={true}>
                             <IconButton onClick={this.createItem}>
@@ -73,6 +74,7 @@ class Card<P extends IProps> extends React.Component<P, IState> {
 
     protected removeAll = () => {
         this.setState({ isCreating: false, isClearing: true });
+        associator.removeAll();
         this.props.onRemoveAllItems();
     };
 
@@ -84,9 +86,9 @@ class Card<P extends IProps> extends React.Component<P, IState> {
         this.setState({ isCreating: true });
     };
 
-    protected onItemSaved = (cardItem: ICardItem) => {
+    protected onItemSaved = () => {
         this.setState({ isCreating: false });
-        this.props.onSaved(cardItem);
+        this.props.onSaved();
     };
 
     protected onCancelCreating = () => {

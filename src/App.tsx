@@ -2,10 +2,11 @@ import * as React from 'react';
 import 'App.css';
 import Card from 'components/Card/Card';
 import PeopleCard from 'components/Card/People/PeopleCard';
-import {CardTitle, ICardItem} from 'models';
+import { CardTitle, ICardItem } from 'models';
 import * as associationHelper from 'services/association/ItemHumanAssociationHelper';
 import billing from 'services/Billing';
 import Grid from '@material-ui/core/Grid';
+import associator from 'services/association/ItemHumanAssociator';
 
 interface IState {
     selectedCardItem: ICardItem | null;
@@ -26,7 +27,8 @@ class App extends React.Component<{}, IState> {
                 <Grid className="margin-top-50">
                     <Grid container={true} item={true} justify="center" xs={12} spacing={40}>
                         <Grid item={true}>
-                            <Card title={CardTitle.items}
+                            <Card
+                                title={CardTitle.items}
                                 ids={ids.itemIds}
                                 onSelectedCardItem={this.onSelectedCardItem}
                                 onAddingAssociation={this.onAddingAssociation}
@@ -57,8 +59,8 @@ class App extends React.Component<{}, IState> {
         );
     }
 
-    private onAddingAssociation = (itemId: number, peopleId: number) => {
-        const splittedBill = billing.addAssociation(itemId, peopleId);
+    private onAddingAssociation = () => {
+        const splittedBill = billing.recalculate();
 
         this.setState({ splittedBill });
     };
@@ -67,40 +69,41 @@ class App extends React.Component<{}, IState> {
         const selectedCardItem = this.state.selectedCardItem;
 
         if (selectedCardItem) {
-            const splittedBill: Record<number, number> = selectedCardItem.id === cardItem.id
-                ? billing.removeAllAssociationsForCardItem(cardItem)
-                : billing.removeAssociation(cardItem, selectedCardItem);
+            if (selectedCardItem.id === cardItem.id) {
+                associator.removeAllForCardItem(cardItem);
+            } else {
+                associator.removeAssociation(cardItem, selectedCardItem);
+            }
+
+            const splittedBill = billing.recalculate();
+
             this.setState({ splittedBill });
         }
-    }
+    };
 
     private onSelectedCardItem = (selectedCardItem: ICardItem) => {
         this.setState({ selectedCardItem });
     };
 
     private onRemoveItem = (cardItem: ICardItem) => {
-        const splittedBill = billing.removeItem(cardItem);
+        const splittedBill = billing.recalculate();
+        const selectedCardItem = this.handleSelectedCardItemRemoval(cardItem);
 
-        this.setState({ splittedBill, selectedCardItem: this.handleSelectedCardItemRemoval(cardItem) });
+        this.setState({ splittedBill, selectedCardItem });
     };
 
     private onRemoveAllItems = () => {
-        const splittedBill = billing.removeAllAssociations();
+        const splittedBill = billing.recalculate();
 
         this.setState({ splittedBill, selectedCardItem: null });
-    }
-
-    private onRemoveHuman = (cardItem: ICardItem) => {
-        const splittedBill = billing.removeHuman(cardItem);
-
-        this.setState({ splittedBill, selectedCardItem: this.handleSelectedCardItemRemoval(cardItem) });
     };
 
-    private handleSelectedCardItemRemoval = (removedCardItem: ICardItem): ICardItem | null => {
-        return this.state.selectedCardItem
-            && this.state.selectedCardItem.id === removedCardItem.id
-            ? null : this.state.selectedCardItem;
-    }
+    private onRemoveHuman = (cardItem: ICardItem) => {
+        const splittedBill = billing.recalculate();
+        const selectedCardItem = this.handleSelectedCardItemRemoval(cardItem);
+
+        this.setState({ splittedBill, selectedCardItem });
+    };
 
     private onClickOutSide = (event: any) => {
         const isSelectable = event.target.dataset.selectable;
@@ -109,17 +112,24 @@ class App extends React.Component<{}, IState> {
         }
     };
 
-    private onSaveItem = (cardItem: ICardItem) => {
-        const splittedBill = billing.putItem({ id: cardItem.id, price: cardItem.price });
+    private onSaveItem = () => {
+        const splittedBill = billing.recalculate();
 
         this.setState({ splittedBill });
     };
 
-    private onSaveHuman = (cardItem: ICardItem) => {
-        const splittedBill = billing.putHuman({ id: cardItem.id, money: cardItem.price });
+    private onSaveHuman = () => {
+        const splittedBill = billing.recalculate();
 
         this.setState({ splittedBill });
     };
+
+    private handleSelectedCardItemRemoval(removedCardItem: ICardItem): ICardItem | null {
+        const selectedCardItem = this.state.selectedCardItem;
+
+        return selectedCardItem && selectedCardItem.id === removedCardItem.id ?
+            null : selectedCardItem;
+    }
 }
 
 export default App;

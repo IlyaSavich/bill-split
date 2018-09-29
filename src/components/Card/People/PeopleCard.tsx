@@ -22,7 +22,7 @@ export default class PeopleCard extends Card<IProps> {
                             </IconButton>
                         </Grid>
                         <Grid item={true}>
-                            <span>{this.props.title}</span>
+                            <span>{this.props.title.toUpperCase()}</span>
                         </Grid>
                         <Grid item={true}>
                             <IconButton onClick={this.createItem}>

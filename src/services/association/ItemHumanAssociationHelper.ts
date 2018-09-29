@@ -1,7 +1,6 @@
 import * as _ from 'lodash';
-import {CardTitle, ICardItem} from 'models';
+import { CardTitle, ICardItem } from 'models';
 import associator, { IItemHumanAssociation } from 'services/association/ItemHumanAssociator';
-import { IBillingItem } from 'services/Billing';
 
 interface IAssociationAccessor {
     associationKey: string;
@@ -68,17 +67,20 @@ export function getSelectedIdsFromAssociations(cardItem: ICardItem | null): ISel
 /**
  * Get items that not associated with any human. Used for calculation when needed to calc general items
  */
-export function filterItemsWithoutAssociation(items: Record<number, IBillingItem>) {
-    return _.filter(items, (item: IBillingItem) => {
-        return _.find(
-            associator.getAll(), (association: IItemHumanAssociation) => association.itemId === item.id,
-        ) === undefined;
-    });
+export function filterItemsWithoutAssociation(items: ICardItem[]) {
+    return _.filter(items, item =>
+        !associator.getAll().some(association => association.itemId === item.id),
+    );
 }
 
-export function getAssociationsGroupedByPeopleId(): number[][] {
-    return _.map(
-        _.groupBy(associator.getAll(), 'peopleId'),
-        (associations: IItemHumanAssociation[]) => _.map(associations, _.property('itemId')),
-    );
+export function getAssociationsGroupedByPeopleId(): Record<number, number[]> {
+    return associator.getAll().reduce((result, association) => {
+        if (!result[association.peopleId]) {
+            result[association.peopleId] = [];
+        }
+
+        result[association.peopleId].push(association.itemId);
+
+        return result;
+    }, {});
 }

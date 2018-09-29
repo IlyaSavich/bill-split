@@ -6,13 +6,19 @@ export interface IItemHumanAssociation {
     peopleId: number;
 }
 
-export default new class ItemHumanAssociator {
+class ItemHumanAssociator {
     private associations: IItemHumanAssociation[] = [];
 
-    public add(association: IItemHumanAssociation) {
-        if (!this.associations.some(current => _.isEqual(current, association))) {
-            this.associations.push(association);
+    public add(association: IItemHumanAssociation): boolean {
+        const isAssociationExists = this.associations.some(current => _.isEqual(current, association));
+
+        if (isAssociationExists) {
+            return false;
         }
+
+        this.associations.push(association);
+
+        return true;
     }
 
     /**
@@ -45,4 +51,6 @@ export default new class ItemHumanAssociator {
     private getAssociationKey(cardItem: ICardItem): string {
         return cardItem.cardTitle === CardTitle.items ? 'itemId' : 'peopleId';
     }
-};
+}
+
+export default new ItemHumanAssociator();
