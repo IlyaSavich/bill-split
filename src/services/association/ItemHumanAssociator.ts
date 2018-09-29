@@ -1,4 +1,4 @@
-import { ICardItem } from 'models';
+import { ICardItem, CardTitle } from 'models';
 import * as _ from 'lodash';
 
 export interface IItemHumanAssociation {
@@ -43,6 +43,6 @@ export default new class ItemHumanAssociator {
     }
 
     private getAssociationKey(cardItem: ICardItem): string {
-        return cardItem.cardTitle.toLowerCase() === 'items' ? 'itemId' : 'peopleId';
+        return cardItem.cardTitle === CardTitle.items ? 'itemId' : 'peopleId';
     }
 };

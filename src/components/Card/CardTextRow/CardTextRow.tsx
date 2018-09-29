@@ -1,7 +1,7 @@
 import 'components/Card/CardTextRow/CardTextRow.css';
 import * as cx from 'classnames';
 import * as React from 'react';
-import { ICardItem } from 'models';
+import {CardTitle, ICardItem} from 'models';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlined from '@material-ui/icons/DeleteOutlined';
@@ -78,7 +78,7 @@ class CardTextRow extends React.Component<IProps> {
         if (draggedCardTitle === this.props.cardItem.cardTitle) {
             return;
         }
-        const association = draggedCardTitle.toLowerCase() === 'items' ?
+        const association = draggedCardTitle === CardTitle.items ?
             {
                 itemId: draggedId,
                 peopleId: this.props.cardItem.id,

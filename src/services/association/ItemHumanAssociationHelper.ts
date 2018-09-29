@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { ICardItem } from 'models';
+import {CardTitle, ICardItem} from 'models';
 import associator, { IItemHumanAssociation } from 'services/association/ItemHumanAssociator';
 import { IBillingItem } from 'services/Billing';
 
@@ -17,8 +17,8 @@ interface ISelectedIds {
     peopleIds: number[] | null;
 }
 
-const ASSOCIATION_ACCESSOR_MAP = {
-    items: {
+const ASSOCIATION_ACCESSOR_MAP: Record<CardTitle, IAssociationAccessor> = {
+    [CardTitle.items]: {
         associationKey: 'itemId',
         defaultValue: {
             itemIds: null,
@@ -28,8 +28,8 @@ const ASSOCIATION_ACCESSOR_MAP = {
             arrayKey: 'peopleIds',
             associationKey: 'peopleId',
         },
-    } as IAssociationAccessor,
-    people: {
+    },
+    [CardTitle.people]: {
         associationKey: 'peopleId',
         defaultValue: {
             itemIds: [],
@@ -39,7 +39,7 @@ const ASSOCIATION_ACCESSOR_MAP = {
             arrayKey: 'itemIds',
             associationKey: 'itemId',
         },
-    } as IAssociationAccessor,
+    },
 };
 
 /**
@@ -50,7 +50,7 @@ export function getSelectedIdsFromAssociations(cardItem: ICardItem | null): ISel
         return { itemIds: null, peopleIds: null };
     }
 
-    const propertyAccessor = ASSOCIATION_ACCESSOR_MAP[cardItem.cardTitle.toLowerCase()];
+    const propertyAccessor = ASSOCIATION_ACCESSOR_MAP[cardItem.cardTitle];
     const associations = associator.getAll();
     return associations.reduce((carry: ISelectedIds, association: IItemHumanAssociation) => {
         const checkId = association[propertyAccessor.associationKey];
