@@ -24,7 +24,7 @@ class App extends React.Component<{}, IState> {
 
         return (
             <div className="App" onClick={this.onClickOutSide}>
-                <Grid className="margin-top-50">
+                <Grid className="padding-top-50">
                     <Grid container={true} item={true} justify="center" xs={12} spacing={40}>
                         <Grid item={true}>
                             <Card
